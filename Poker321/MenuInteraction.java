@@ -45,16 +45,11 @@ public class MenuInteraction {
     // Load a previously saved game state
     private void loadGame() 
     {
-        System.out.println("Loading saved game...");
-        
         /* Needs collaboration with CPU superclass to load progress of their game state as well.
            When finished, will allow player to load a file that resumes a previous game.
         */
         
         // Define the file path or let the user provide one
-        String fileName = "saved_game.dat";  // Example path for the saved game file
-        
-       
     }
     
     // Option to view the game rules
