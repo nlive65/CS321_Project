@@ -10,6 +10,7 @@ package com.mycompany.poker;
  */
 
 // A basic idea of what the Player class will need, will likely be appended when collaborating with CPU classes
+// Will require much collaboration with GameLoop superclass to assign cards, winning hands, etc.
 
 public class Player {
     
@@ -22,71 +23,63 @@ public class Player {
     
     
     // Constructor
-    public Player(String name, int initialBalance) {
-        this.name = name;
-        this.balance = initialBalance;
-        this.isActive = true;
-        this.currentBet = 0;
+    public Player(String name, int initialBalance) 
+    {
+
     }
     
     
     // Getters and Setters
-    public String getName() {
-        return name;
+    public String getName() 
+    {
+        
     }
 
-    public int getBalance() {
-        return balance;
+    public int getBalance() 
+    {
+        
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public void setBalance(int balance) 
+    {
+        
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isActive() 
+    {
+        
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setActive(boolean active) 
+    {
+        
     }
 
-    public int getCurrentBet() {
-        return currentBet;
+    public int getCurrentBet() 
+    {
+        
     }
 
-    public void setCurrentBet(int currentBet) {
-        this.currentBet = currentBet;
+    public void setCurrentBet(int currentBet) 
+    {
+        
     }
 
     // Method to decrease the player's balance (when making a bet)
-    public void decreaseBalance(int amount) {
-        if (balance >= amount) {
-            balance -= amount;
-            currentBet += amount;
-        } else {
-            System.out.println("Not enough balance to make the bet.");
-        }
+    public void decreaseBalance(int amount) 
+    {
+      
     }
 
     // Method to reset player's current bet for a new round
-    public void resetBet() {
-        currentBet = 0;
-    }
-
-    // Method to fold (leave the current round)
-    public void fold() {
-        isActive = false;
-        System.out.println(name + " folds.");
+    public void resetBet() 
+    {
+        
     }
 
     // Method to check if the player can place a specific bet amount
-    public boolean canBet(int amount) {
-        return balance >= amount;
-    }
-
-    // Display player's current hand (for debugging or in-game display)
-    public void displayHand() {
-        System.out.println(name + "'s hand: " + hand);
+    public boolean canBet(int amount) 
+    {
+        
     }
 }
