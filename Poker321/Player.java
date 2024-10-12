@@ -1,84 +1,77 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package com.mycompany.poker;
 
 /**
  *
- * @author Luke
+ * @author giosa
+ * 
+ * this class represents a player in the poker game, either human or CPU.
+ * 
+ * the Player class will collaborate with the CardHand class to manage the player's hand
+ * of cards during the game. 
  */
 
-// A basic idea of what the Player class will need, will likely be appended when collaborating with CPU classes
-// Will require much collaboration with GameLoop superclass to assign cards, winning hands, etc.
+public abstract class Player 
+{
+    protected String name; 
+    protected int chips; 
+    protected CardHand hand; 
+    protected int currentBet; 
 
-public class Player {
-    
-    // Variables needed
-    private final String name;
-    private int balance;
-    private int hand;
-    private boolean isActive;
-    private int currentBet;
-    
-    
-    // Constructor
-    public Player(String name, int initialBalance) 
+    // constructor
+    public Player(String name, int chips) 
     {
-
+       
     }
     
-    
-    // Getters and Setters
-    public String getName() 
+    // getters
+    public String GetName() 
+    {
+        return name;
+    }
+
+    public int GetChips() 
+    {
+        return chips;
+    }
+
+    public CardHand GetHand() 
+    {
+        return hand;
+    }
+
+    public int GetCurrentBet() 
+    {
+        return currentBet;
+    }
+
+    // method to make a move in the game
+    public abstract void MakeMove();
+
+    // method to place a bet
+    public void PlaceBet(int amount) 
     {
         
     }
 
-    public int getBalance() 
+    // method to fold
+    public void Fold() 
     {
         
     }
 
-    public void setBalance(int balance) 
+    // method to check
+    public void Check() 
     {
         
     }
 
-    public boolean isActive() 
-    {
-        
-    }
 
-    public void setActive(boolean active) 
-    {
-        
-    }
-
-    public int getCurrentBet() 
-    {
-        
-    }
-
-    public void setCurrentBet(int currentBet) 
-    {
-        
-    }
-
-    // Method to decrease the player's balance (when making a bet)
-    public void decreaseBalance(int amount) 
-    {
-      
-    }
-
-    // Method to reset player's current bet for a new round
+    // method to reset the current bet when the rounds are finished
     public void resetBet() 
-    {
-        
-    }
-
-    // Method to check if the player can place a specific bet amount
-    public boolean canBet(int amount) 
     {
         
     }
