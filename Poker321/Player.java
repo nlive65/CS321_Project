@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.poker;
+package com.mycompany.player;
 
 /**
  *
  * @author giosa
  * 
- * this class represents a player in the poker game, either human or CPU.
+ * This class represents a player in the poker game, either human or CPU.
  * 
- * the Player class will collaborate with the CardHand class to manage the player's hand
+ * The Player class will collaborate with the CardHand class to manage the player's hand
  * of cards during the game. 
  */
 
@@ -34,23 +34,22 @@ public abstract class Player
         this.hasChecked = false;
     }
     
-    // getters
-    public String GetName() 
+    public String getName() 
     {
         return name;
     }
 
-    public int GetChips() 
+    public int getChips() 
     {
         return chips;
     }
 
-    public CardHand GetHand() 
+    public CardHand getHand() 
     {
         return hand;
     }
 
-    public int GetCurrentBet() 
+    public int getCurrentBet() 
     {
         return currentBet;
     }
@@ -65,8 +64,9 @@ public abstract class Player
         return hasFolded;
     }
 
-    // method to make a move in the game
-    public abstract void MakeMove();
+    // abstract method for subcall to make moves
+    public abstract void makeMove();
+
 
     // method to add chips
     public void addChips(int amount)
@@ -81,6 +81,7 @@ public abstract class Player
         }
     }
 
+
     //method to subtract chips for placing bets
     public void subChips(int amount)
     {
@@ -94,14 +95,15 @@ public abstract class Player
             System.out.println("Not enough chips or invalid bet amount.");
         }
     }
-    
+
     // method to place a bet
-    public void PlaceBet(int amount) 
+    public void placeBet(int betAmount) 
     {
-         if (betAmount > 0 && betAmount <= chips) 
+        if (betAmount > 0 && betAmount <= chips) 
         {
             this.currentBet = betAmount;
             subChips(betAmount);  // Deduct the bet amount from chips
+            System.out.println(name + "has placed a bet: " + betAmount + " chips");
         } 
         else 
         {
@@ -110,22 +112,23 @@ public abstract class Player
     }
 
     // method to fold
-    public void Fold() 
+    public void fold() 
     {
-        this.hasFolded = true; // player folded
-        // message indicating user folded
+        this.hasFolded = true; 
+        System.out.println(name + " has folded");
     }
 
     // method to check
-    public void Check() 
+    public void check() 
     {
         if (this.currentBet == 0)
         {
-            this.hasChecked = true; //player checked when no one has bet
+            this.hasChecked = true; //player has checked when no one has bet
+            System.out.println(name + " has checked");
         }
         else
         {
-            //message indicating player cannot check
+            System.out.println("Bet placed, cannot check");
         }
     }
 
