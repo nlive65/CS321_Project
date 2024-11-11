@@ -27,7 +27,7 @@ public class Player {
     {
         this.name = name;
         this.balance = initialBalance;
-        this.hand = 0;
+        this.hand = CardHand.GetTwoCardHand();
         this.isActive = true;
         this.currentBet = 0;
     }
@@ -39,6 +39,7 @@ public class Player {
         return name;
     }
 
+    
     public int getBalance() 
     {
         return balance;
@@ -95,3 +96,4 @@ public class Player {
         return amount <= balance;
     }
 }
+
