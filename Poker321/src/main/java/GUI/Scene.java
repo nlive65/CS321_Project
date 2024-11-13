@@ -11,14 +11,18 @@ package GUI;
 /**
  * Abstract class representing a scene in the application.
  */
-public abstract class Scene {
+public abstract class Scene extends javax.swing.JFrame {
     /**
      * Renders the scene.
      */
-    public abstract void render();
+    //public abstract void render();
 
     /**
      * Updates the scene.
      */
-    public abstract void update();
+    //public abstract void update();
+    
+    public abstract GUI_STATE getTransition();
+    
+    public abstract void ResetTransition();
 }

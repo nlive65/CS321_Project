@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package GUI;
-
+import java.util.ArrayList;
 /**
  *
  * @author Nick
@@ -11,13 +11,16 @@ package GUI;
 /**
  * Manages the graphical user interface, handling transitions between different states.
  */
-public class GUIManager implements GraphicsHandler {
+public class GUIManager inpmlements GraphicsHandler {
     private GUI_STATE activeGUI; // The currently active GUI state
     private HomeMenuScene homeHandler; // Handler for the home menu scene
-    private PreplaySettingsScene settingsHandler; // Handler for preplay settings scene
-    private GameloopScene gameDisplay; // Handler for the game loop scene
+    private Game_setings settingsHandler; // Handler for preplay settings scene
+    private GameLoopScene gameDisplay; // Handler for the game loop scene
     private LeaderboardScene leaderboardHandler; // Handler for the leaderboard scene
-
+    private Scene scenes[4] = [homeHandler, settingsHandler, gameDisplay,leaderboardHandler];
+    GUIManager(){        
+        this.activeGUI = GUI_STATE.HOME_MENU;
+    }
     /**
      * Sets the active GUI state.
      * 
@@ -25,6 +28,13 @@ public class GUIManager implements GraphicsHandler {
      */
     public void setActiveGUI(GUI_STATE state) {
         // Implementation
+        if(state != this.activeGUI){            
+            this.scenes[this.activeGUI.ordinal()].setVisible(false);
+            this.scenes[this.activeGUI.ordinal()].setVisible(false);
+            this.activeGUI = state;
+            this.scenes[this.activeGUI.ordinal()].setVisible(true);
+            
+        }
     }
 
     /**
@@ -35,6 +45,9 @@ public class GUIManager implements GraphicsHandler {
      */
     public void update(GAME_EVENTS eventType, String command) {
         // Implementation
+    }
+    public void render(){
+        
     }
 }
 

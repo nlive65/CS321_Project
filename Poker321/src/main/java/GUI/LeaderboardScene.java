@@ -8,11 +8,19 @@ package GUI;
  *
  * @author Nick
  */
-public class LeaderboardScene extends javax.swing.JFrame {
+public class LeaderboardScene extends Scene {
 
     /**
      * Creates new form LeaderboardScene
      */
+    
+    public void ResetTransition(){
+        
+    }
+    
+    public GUI_STATE getTransition(){
+        
+    }
     public LeaderboardScene() {
         initComponents();
     }

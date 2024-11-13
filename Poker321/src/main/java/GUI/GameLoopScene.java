@@ -8,8 +8,16 @@ package GUI;
  *
  * @author Nick
  */
-public class GameLoopScene extends javax.swing.JFrame {
-
+public class GameLoopScene extends Scene {
+    private GUI_STATE internalStateTransitionSignal = GUI_STATE.GAMELOOP;
+    
+    public void ResetTransition(){
+        this.internalStateTransitionSignal = GUI_STATE.GAMELOOP;
+    }
+    
+    public GUI_STATE getTransition(){
+        return this.internalStateTransitionSignal;
+    }
     /**
      * Creates new form GameLoopScene
      */
