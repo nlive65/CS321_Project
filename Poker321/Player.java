@@ -17,7 +17,7 @@ public class Player {
     // Variables needed
     private final String name;
     private int balance;
-    private int hand;
+    private CardHand hand;
     private boolean isActive;
     private int currentBet;
     
@@ -96,4 +96,3 @@ public class Player {
         return amount <= balance;
     }
 }
-
