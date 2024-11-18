@@ -22,7 +22,11 @@ public class BetInteraction {
     public BetInteraction(Player player, int pot) 
     { //This will need collaboration from the GameLoop superclass
         this.player = player;
+<<<<<<< HEAD
+        this.pot = pot;
+=======
         GameRules.GetPot() = pot;
+>>>>>>> 99d99a790912621287737978049221641de329a2
     }
 
     // Display available actions to the player (fold, check, call, raise)
@@ -72,12 +76,21 @@ public class BetInteraction {
     // Player checks
     private void check() 
     {
+<<<<<<< HEAD
+        // Move turn to next player
+=======
         GameRules.NextTurn();
+>>>>>>> 99d99a790912621287737978049221641de329a2
     }
 
     // Player calls
     private void call() 
     {
+<<<<<<< HEAD
+        int amount = player.getCurrentBet();
+        player.decreaseBalance(amount);
+        // Add some stuff to do with the pot here
+=======
         if (player.isActive()){
         int amount = player.getCurrentBet();
         player.decreaseBalance(amount);
@@ -86,12 +99,16 @@ public class BetInteraction {
         else{
             check();
         }
+>>>>>>> 99d99a790912621287737978049221641de329a2
     }
 
     // Player raises
     private void raise() 
     {
+<<<<<<< HEAD
+=======
         if(player.isActive()){
+>>>>>>> 99d99a790912621287737978049221641de329a2
         int raiseAmount = 1; //Change to whatever our minimum raise will be
         int totalRaise = player.getCurrentBet() + raiseAmount;
         
@@ -99,17 +116,24 @@ public class BetInteraction {
         {
             player.decreaseBalance(totalRaise);
             player.setCurrentBet(totalRaise);
+<<<<<<< HEAD
+            // Add pot stuff here
+=======
             GameRules.AddToPot(player.getCurrentBet());
 
+>>>>>>> 99d99a790912621287737978049221641de329a2
         }
         else
         {
             // Add some kind of error here, maybe a gui thing
         }
+<<<<<<< HEAD
+=======
       }
         else{
             check();
         }
+>>>>>>> 99d99a790912621287737978049221641de329a2
     }
 
     // Player folds
