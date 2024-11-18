@@ -17,6 +17,7 @@ public class BetInteraction {
     
     private final Player player;
     
+    
      // Constructor
     public BetInteraction(Player player, int pot) 
     { //This will need collaboration from the GameLoop superclass
@@ -71,20 +72,26 @@ public class BetInteraction {
     // Player checks
     private void check() 
     {
-        // Move turn to next player
+        GameRules.NextTurn();
     }
 
     // Player calls
     private void call() 
     {
+        if (player.isActive()){
         int amount = player.getCurrentBet();
         player.decreaseBalance(amount);
-        // Add some stuff to do with the pot here
+        GameRules.AddToPot(player.getCurrentBet());
+        }
+        else{
+            check();
+        }
     }
 
     // Player raises
     private void raise() 
     {
+        if(player.isActive()){
         int raiseAmount = 1; //Change to whatever our minimum raise will be
         int totalRaise = player.getCurrentBet() + raiseAmount;
         
@@ -97,6 +104,10 @@ public class BetInteraction {
         else
         {
             // Add some kind of error here, maybe a gui thing
+        }
+      }
+        else{
+            
         }
     }
 
