@@ -2,8 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.poker;
-
+package gameManager;
+import card.CardHand;
 /**
  *
  * @author giosa

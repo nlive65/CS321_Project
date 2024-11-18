@@ -14,6 +14,5 @@ package GUI;
 public enum GUI_STATE{
     HOME_MENU,
     PREPLAY_SETTINGS,
-    GAMELOOP,
-    LEADERBOARD;
+    GAMELOOP
 }

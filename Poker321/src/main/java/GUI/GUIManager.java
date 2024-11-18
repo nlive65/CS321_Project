@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package GUI;
-import java.util.ArrayList;
+import com.mycompany.poker321.GAME_EVENTS;
 /**
  *
  * @author Nick
@@ -11,15 +11,18 @@ import java.util.ArrayList;
 /**
  * Manages the graphical user interface, handling transitions between different states.
  */
-public class GUIManager inpmlements GraphicsHandler {
+public class GUIManager implements GraphicsHandler {
     private GUI_STATE activeGUI; // The currently active GUI state
     private HomeMenuScene homeHandler; // Handler for the home menu scene
-    private Game_setings settingsHandler; // Handler for preplay settings scene
+    private Game_settings settingsHandler; // Handler for preplay settings scene
     private GameLoopScene gameDisplay; // Handler for the game loop scene
-    private LeaderboardScene leaderboardHandler; // Handler for the leaderboard scene
-    private Scene scenes[4] = [homeHandler, settingsHandler, gameDisplay,leaderboardHandler];
+    private Scene[] scenes;
     GUIManager(){        
         this.activeGUI = GUI_STATE.HOME_MENU;
+        this.homeHandler = new HomeMenuScene();
+        this.settingsHandler = new Game_settings();
+        this.gameDisplay = new GameLoopScene(); 
+        this.scenes = new Scene[] {homeHandler,settingsHandler,gameDisplay};
     }
     /**
      * Sets the active GUI state.
@@ -30,10 +33,8 @@ public class GUIManager inpmlements GraphicsHandler {
         // Implementation
         if(state != this.activeGUI){            
             this.scenes[this.activeGUI.ordinal()].setVisible(false);
-            this.scenes[this.activeGUI.ordinal()].setVisible(false);
             this.activeGUI = state;
-            this.scenes[this.activeGUI.ordinal()].setVisible(true);
-            
+            this.scenes[this.activeGUI.ordinal()].setVisible(true);   
         }
     }
 

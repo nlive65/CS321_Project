@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.gameloop;
+package card;
+import card.Card;
 import java.util.ArrayList;
 /**
  *
@@ -32,13 +33,13 @@ public class CardDeck extends Card
     // This will take the top card in the array list and remove it.
     public Card PullTopCard()
     {
-        
+        return new Card();
     }
     
     // This will take a numbered card from the list and will remove it.
     public Card PullCertainCard(int cardNumber)
     {
-        
+        return new Card();
     }
     
     
