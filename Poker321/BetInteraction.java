@@ -100,6 +100,7 @@ public class BetInteraction {
             player.decreaseBalance(totalRaise);
             player.setCurrentBet(totalRaise);
             GameRules.AddToPot(player.getCurrentBet());
+
         }
         else
         {
@@ -107,7 +108,7 @@ public class BetInteraction {
         }
       }
         else{
-            
+            check();
         }
     }
 
