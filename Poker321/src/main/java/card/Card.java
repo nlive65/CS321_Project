@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package card;
+package gameManager;
 
 /**
  *
@@ -22,6 +22,12 @@ public class Card
         
     }
     
+    public Card(int myValue, char mySuit)
+    {
+        value = myValue;
+        suit = mySuit;
+    }
+    
     /*
     This cass simply needs to just contain these two values to do checks]
     for hands later in the program. This will allow us to let the poker game
@@ -35,5 +41,15 @@ public class Card
     public char GetSuit()
     {
         return suit;
+    }
+    
+    public void SetValue(int myValue)
+    {
+        value = myValue;
+    }
+    
+    public void SetSuit(char mySuit)
+    {
+        suit = mySuit;
     }
 }
