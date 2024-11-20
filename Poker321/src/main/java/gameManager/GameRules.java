@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package gameManager;
+
+import card.Card;
+import gameManager.Player;
 //import java.util.ArrayList;
 
-import com.mycompany.cards.CardLogic;
-import gameManager.CardHand;
-import gameManager.CardDeck;
-import gameManager.Card;
+import card.CardLogic;
+import card.CardHand;
+import card.CardDeck;
 
 /**
  *
@@ -45,28 +47,28 @@ public class GameRules extends CardLogic
            for(int index = 0; index < 2; index++)
            {
                pullCard = deck.PullTopCard();
-               p1.GetCardHand().AddToTwCardHand(pullCard);
+               p1.GetCardHand().AddToTwoCardHand(pullCard);
                p1.GetCardHand().AddToFullHand(pullCard);
            }
            
            for(int index = 0; index < 2; index++)
            {
                pullCard = deck.PullTopCard();
-               p2.GetCardHand().AddToTwCardHand(pullCard);
+               p2.GetCardHand().AddToTwoCardHand(pullCard);
                p2.GetCardHand().AddToFullHand(pullCard);
            }
            
            for(int index = 0; index < 2; index++)
            {
                pullCard = deck.PullTopCard();
-               p3.GetCardHand().AddToTwCardHand(pullCard);
+               p3.GetCardHand().AddToTwoCardHand(pullCard);
                p3.GetCardHand().AddToFullHand(pullCard);
            }
            
            for(int index = 0; index < 2; index++)
            {
                pullCard = deck.PullTopCard();
-               p4.GetCardHand().AddToTwCardHand(pullCard);
+               p4.GetCardHand().AddToTwoCardHand(pullCard);
                p4.GetCardHand().AddToFullHand(pullCard);
            }
            
@@ -78,23 +80,27 @@ public class GameRules extends CardLogic
         int p2Value = p2.GetCardHand().GetTwoCardHandHighCard();
         if(p1Value > p2Value)
         {
-            p1.Winner(pot);
+            p1.increaseBalance(pot);
+            System.out.println(p1.getName() + " wins!");
         }
         else if(p2Value > p1Value)
         {
-            p2.Winner(pot);
+            p2.increaseBalance(pot);
+            System.out.println(p2.getName() + " wins!");
         }
         else
         {
-            p1.Winner(pot/2);
-            p2.WInner(pot/2);
+            p1.increaseBalance(pot/2);
+            p2.increaseBalance(pot/2);
+            
+            System.out.println(p1.getName() + " and " + p2.getName() + " tied!");
             
         }
     }
     
     private void drawWithThree(Player p1, Player p2, Player p3)
     {
-        int p1Value = p1.GetCardHand().GeTwoCardHandHighCard();
+        int p1Value = p1.GetCardHand().GetTwoCardHandHighCard();
         int p2Value = p2.GetCardHand().GetTwoCardHandHighCard();
         int p3Value = p3.GetCardHand().GetTwoCardHandHighCard();
         
@@ -104,40 +110,56 @@ public class GameRules extends CardLogic
         
         if(p1Highest && !p2Highest && !p3Highest)
         {
-            // P1 Winner
+            p1.increaseBalance(pot);
+            System.out.println(p1.getName() + " wins!");
         }
         else if(p2Highest && !p1Highest && !p3Highest)
         {
-            // P2 Winner
+            p2.increaseBalance(pot);
+            System.out.println(p2.getName() + " wins!");
         }
         else if(p3Highest && !p1Highest && !p2Highest)
         {
-            // P3 Winner
+            p3.increaseBalance(pot);
+            System.out.println(p3.getName() + " wins!");
         }
         else if(p1Highest && p2Highest && !p3Highest)
         {
-            // P1 and P2
+            p1.increaseBalance(pot/2);
+            p2.increaseBalance(pot/2);
+            
+            System.out.println(p1.getName() + " and " + p2.getName() + " tied");
         }
         else if(p2Highest && p3Highest && !p1Highest)
         {
-            // P2 and P3
+            p2.increaseBalance(pot/2);
+            p3.increaseBalance(pot/2);
+            
+            System.out.println(p2.getName() + " and " + p3.getName() + " tied");
         }
         else if(p1Highest && p3Highest && !p2Highest)
         {
+            p1.increaseBalance(pot/2);
+            p3.increaseBalance(pot/2);
             
+            System.out.println(p1.getName() + " and " + p3.getName() + " tied");
         }
         else
         {
-            // P1 and P2 and P3
+            p1.increaseBalance(pot/3);
+            p2.increaseBalance(pot/3);
+            p3.increaseBalance(pot/3);
+            
+            System.out.println(p1.getName() + ", " + p2.getName() + ", and " + p3.getName() + " tied!");
         }
     }
     
     private void drawWithFour(Player p1, Player p2, Player p3, Player p4)
     {
-        int p1Value = p1.GetCardHand().GeTwoCardHandHighCard();
+        int p1Value = p1.GetCardHand().GetTwoCardHandHighCard();
         int p2Value = p2.GetCardHand().GetTwoCardHandHighCard();
         int p3Value = p3.GetCardHand().GetTwoCardHandHighCard();
-        int p4Value = p4.GetCardHand().GetTwoCardHandHIghCard();
+        int p4Value = p4.GetCardHand().GetTwoCardHandHighCard();
         
         boolean p1Highest = p1Value >= p2Value && p1Value >= p3Value && p1Value >= p4Value;
         boolean p2Highest = p2Value >= p1Value && p2Value >= p3Value && p2Value >= p4Value;
@@ -146,110 +168,186 @@ public class GameRules extends CardLogic
         
         if(p1Highest && !p2Highest && !p3Highest && !p4Highest)
         {
-            // P1 Wins
+            p1.increaseBalance(pot);
         }
         else if(p2Highest && !p1Highest && !p3Highest && !p4Highest)
         {
-            // P2 Wins
+            p2.increaseBalance(pot);
         }
         else if(p3Highest && !p1Highest && !p2Highest && !p4Highest)
         {
-            // P3 Wins
+            p3.increaseBalance(pot);
         }
         else if(p4Highest && !p1Highest && !p2Highest && !p3Highest)
         {
-            // P4 Wins
+            p4.increaseBalance(pot);
         }
         else if(p1Highest && p2Highest && !p3Highest && !p4Highest)
         {
-            // P1 and P2
+            p1.increaseBalance(pot/2);
+            p2.increaseBalance(pot/2);
+            
+            System.out.println(p1.getName() + " and " + p2.getName() + " tied");
         }
         else if(p2Highest && p3Highest && !p1Highest && !p4Highest)
         {
-            // P2 and P3
+            p2.increaseBalance(pot/2);
+            p3.increaseBalance(pot/2);
+            
+            System.out.println(p3.getName() + " and " + p4.getName() + " tied");
         }
         else if(p3Highest && p4Highest && !p1Highest && !p2Highest)
         {
-            // P3 and P4
+            p3.increaseBalance(pot/2);
+            p4.increaseBalance(pot/2);
+            
+            System.out.println(p3.getName() + " and " + p4.getName() + " tied");
         }
         else if(p1Highest && p3Highest && !p2Highest && !p4Highest)
         {
-            // P1 and P3
+            p1.increaseBalance(pot/2);
+            p3.increaseBalance(pot/2);
+            
+            System.out.println(p1.getName() + " and " + p3.getName() + " tied");
         }
         else if(p1Highest && p4Highest && !p2Highest && !p3Highest)
         {
-            // P1 and P4
+            p1.increaseBalance(pot/2);
+            p4.increaseBalance(pot/2);
+            
+            System.out.println(p1.getName() + " and " + p4.getName() + " tied");
         }
         else if(p2Highest && p4Highest && !p1Highest && !p3Highest)
         {
-            // P2 and P4
+            p2.increaseBalance(pot/2);
+            p4.increaseBalance(pot/2);
+            
+            System.out.println(p2.getName() + " and " + p4.getName() + " tied");
         }
         else if(p1Highest && p2Highest && p3Highest && !p4Highest)
         {
-            // P1 and P2 and P3
+            p1.increaseBalance(pot/3);
+            p2.increaseBalance(pot/3);
+            p3.increaseBalance(pot/3);
+            
+            System.out.println(p1.getName() + ", " + p2.getName() + ", and " + p3.getName() + " tied!");
         }
         else if(p1Highest && p3Highest && p4Highest && !p2Highest)
         {
-            // P1 and P3 and P4
+            p1.increaseBalance(pot/3);
+            p3.increaseBalance(pot/3);
+            p4.increaseBalance(pot/3);
+            
+            System.out.println(p1.getName() + ", " + p3.getName() + ", and " + p4.getName() + " tied!");
         }
         else if(p2Highest && p3Highest && p4Highest && !p1Highest)
         {
-            // P2 P3 and P4
+            p2.increaseBalance(pot/3);
+            p3.increaseBalance(pot/3);
+            p4.increaseBalance(pot/3);
+            
+            System.out.println(p2.getName() + ", " + p3.getName() + ", and " + p4.getName() + " tied!");
         }
         else if(p1Highest && p2Highest && p4Highest && !p3Highest)
         {
-            // P1 and P2 and P4
+            p1.increaseBalance(pot/3);
+            p2.increaseBalance(pot/3);
+            p4.increaseBalance(pot/3);
+            
+            System.out.println(p1.getName() + ", " + p2.getName() + ", and " + p4.getName() + " tied!");
         }
         else
         {
-            // p1 and P2 and P3 and P4
+            p1.increaseBalance(pot/4);
+            p2.increaseBalance(pot/4);
+            p3.increaseBalance(pot/4);
+            p4.increaseBalance(pot/4);
+            
+            System.out.println("Everyone Tied!");
         }
             
     }
     
     public void DeclareWinner(Player p1, Player p2, Player p3, Player p4)
     {
-        int p1HandValue = CheckHand(p1.GetFullHand());
-        int p2HandValue = CheckHand(p2.GetFullHand());
-        int p3HandValue = CheckHand(p3.GetFullHand());
-        int p4HandValue = CheckHand(p4.GetFullHand());
+        int p1HandValue = CheckHand(p1.GetCardHand());
+        int p2HandValue = CheckHand(p2.GetCardHand());
+        int p3HandValue = CheckHand(p3.GetCardHand());
+        int p4HandValue = CheckHand(p4.GetCardHand());
+        
+        if(!p1.isActive())
+        {
+            p1HandValue = -1;
+        }
+        if(!p2.isActive())
+        {
+            p2HandValue = -1;
+        }
+        if(!p3.isActive())
+        {
+            p3HandValue = -1;
+        }
+        if(!p4.isActive())
+        {
+            p4HandValue = -1;
+        }
         
         boolean p1HandHighest = p1HandValue >= p2HandValue && p1HandValue >= p3HandValue && p1HandValue >= p4HandValue;
         boolean p2HandHighest = p2HandValue >= p1HandValue && p2HandValue >= p3HandValue && p2HandValue >= p4HandValue;
         boolean p3HandHighest = p3HandValue >= p1HandValue && p3HandValue >= p2HandValue && p3HandValue >= p4HandValue;
         boolean p4HandHighest = p4HandValue >= p1HandValue && p4HandValue >= p2HandValue && p4HandValue >= p3HandValue;
         
-        boolean[] trueArray = {p1HandHighest, p2HandHighest, p3HandHighest, p4HandHighest};
         int trueCount = 0;
-        for(boolean val : trueArray)
+        
+        if(p1HandHighest)
         {
-            if(val)
-            {
-                trueCount++;
-            }
+            trueCount++;
         }
+        if(p2HandHighest)
+        {
+            trueCount++;
+        }
+        if(p3HandHighest)
+        {
+            trueCount++;
+        }
+        if(p4HandHighest)
+        {
+            trueCount++;
+        }
+        
+        System.out.println(trueCount);
+        System.out.print(" number of trues.");
         
         if(trueCount == 1)
         {
             if(p1HandHighest)
             {
-                // P1 Win
+                p1.increaseBalance(pot);
+                
+                System.out.println(p1.getName() + " wins!");
             }
             else if(p2HandHighest)
             {
-                // P2 Win
+                p2.increaseBalance(pot);
+                
+                System.out.println(p2.getName() + " wins!");
             }
             else if(p3HandHighest)
             {
-                // P3 Win
+                p3.increaseBalance(pot);
+                
+                System.out.println(p3.getName() + " wins!");
             }
             else
             {
-                // P4 WIn
+                p4.increaseBalance(pot);
+                
+                System.out.println(p4.getName() + " wins!");
             }
         }
         
-        if(trueCount == 2)
+        else if(trueCount == 2)
         {
             if(p1HandHighest && p2HandHighest)
             {
