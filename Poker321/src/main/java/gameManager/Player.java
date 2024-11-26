@@ -18,7 +18,7 @@ public class Player {
     // Variables needed
     private final String name;
     private int balance;
-    private CardHand hand;
+    private CardHand hand = new CardHand();
     private boolean isActive;
     private int currentBet;
     
@@ -28,7 +28,7 @@ public class Player {
     {
         this.name = name;
         this.balance = initialBalance;
-        //this.hand = CardHand.GetTwoCardHand();
+        hand = new CardHand();
         this.isActive = true;
         this.currentBet = 0;
     }
@@ -40,6 +40,10 @@ public class Player {
         return name;
     }
 
+    public CardHand GetCardHand()
+    {
+        return hand;
+    }
     
     public int getBalance() 
     {
@@ -83,6 +87,11 @@ public class Player {
         {
             throw new IllegalArgumentException("Insufficient balance to place bet");
         }
+    }
+    
+    public void increaseBalance(int amount)
+    {
+        balance += amount;
     }
 
     // Method to reset player's current bet for a new round
