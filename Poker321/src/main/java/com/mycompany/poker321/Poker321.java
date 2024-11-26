@@ -3,7 +3,7 @@
  */
 
 package com.mycompany.poker321;
-
+import GUI.GUIManager;
 /**
  *
  * @author Nick
@@ -11,6 +11,10 @@ package com.mycompany.poker321;
 public class Poker321 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        GUIManager guiHandler = new GUIManager();
+        while(true){
+           guiHandler.update();
+        }
     }
 }

@@ -5,7 +5,6 @@
 
 package gameManager;
         
-import com.mycompany.cards.Card;
 import gameManager.Card;
 import java.util.ArrayList;
 import java.util.Collections;

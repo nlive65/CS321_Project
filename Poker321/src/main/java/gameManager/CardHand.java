@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package gameManager;
-import com.mycompany.cards.Card;
-import gameManager.Card;
+//import gameManager.Card;
 import java.util.ArrayList;
 /**
  *

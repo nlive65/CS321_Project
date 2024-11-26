@@ -4,6 +4,8 @@
  */
 package GUI;
 import com.mycompany.poker321.GAME_EVENTS;
+import java.util.HashSet;
+import java.util.Set;
 /**
  *
  * @author Nick
@@ -17,12 +19,17 @@ public class GUIManager implements GraphicsHandler {
     private Game_settings settingsHandler; // Handler for preplay settings scene
     private GameLoopScene gameDisplay; // Handler for the game loop scene
     private Scene[] scenes;
-    GUIManager(){        
+
+    public GUIManager(){        
         this.activeGUI = GUI_STATE.HOME_MENU;
         this.homeHandler = new HomeMenuScene();
         this.settingsHandler = new Game_settings();
         this.gameDisplay = new GameLoopScene(); 
         this.scenes = new Scene[] {homeHandler,settingsHandler,gameDisplay};
+        for(int i =0;i<this.scenes.length;i++){
+            this.scenes[i].setVisible(false);
+        }
+        this.setActiveGUI(this.activeGUI);
     }
     /**
      * Sets the active GUI state.
@@ -31,21 +38,19 @@ public class GUIManager implements GraphicsHandler {
      */
     public void setActiveGUI(GUI_STATE state) {
         // Implementation
-        if(state != this.activeGUI){            
-            this.scenes[this.activeGUI.ordinal()].setVisible(false);
-            this.activeGUI = state;
-            this.scenes[this.activeGUI.ordinal()].setVisible(true);   
-        }
+        this.scenes[this.activeGUI.ordinal()].setVisible(false);
+        this.activeGUI = state;
+        this.scenes[this.activeGUI.ordinal()].setVisible(true);   
     }
 
-    /**
-     * Updates the GUI based on the specified event and command.
-     * 
-     * @param eventType The type of game event that occurred.
-     * @param command The command associated with the event.
-     */
-    public void update(GAME_EVENTS eventType, String command) {
-        // Implementation
+    
+    public void update(){
+        GUI_STATE checkTransition = this.scenes[this.activeGUI.ordinal()].getTransition();
+        System.out.println(checkTransition);
+        if(this.activeGUI != checkTransition){
+            this.scenes[this.activeGUI.ordinal()].ResetTransition();
+            this.setActiveGUI(checkTransition);
+        }
     }
     public void render(){
         

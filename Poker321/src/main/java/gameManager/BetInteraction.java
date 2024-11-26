@@ -23,7 +23,7 @@ public class BetInteraction {
     public BetInteraction(Player player, int pot) 
     { //This will need collaboration from the GameLoop superclass
         this.player = player;
-        GameRules.GetPot() = pot;
+        //GameRules.GetPot() = pot;
     }
 
     // Display available actions to the player (fold, check, call, raise)
@@ -73,7 +73,7 @@ public class BetInteraction {
     // Player checks
     private void check() 
     {
-        GameRules.NextTurn();
+        //GameRules.NextTurn();
     }
 
     // Player calls
@@ -82,7 +82,7 @@ public class BetInteraction {
         if (player.isActive()){
         int amount = player.getCurrentBet();
         player.decreaseBalance(amount);
-        GameRules.AddToPot(player.getCurrentBet());
+        //GameRules.AddToPot(player.getCurrentBet());
         }
         else{
             check();
@@ -100,7 +100,7 @@ public class BetInteraction {
         {
             player.decreaseBalance(totalRaise);
             player.setCurrentBet(totalRaise);
-            GameRules.AddToPot(player.getCurrentBet());
+            //GameRules.AddToPot(player.getCurrentBet());
 
         }
         else
