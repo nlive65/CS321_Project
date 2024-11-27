@@ -5,7 +5,7 @@
 
 package gameManager;
         
-import gameManager.Card;
+import card.Card;
 import java.util.ArrayList;
 import java.util.Collections;
 /**

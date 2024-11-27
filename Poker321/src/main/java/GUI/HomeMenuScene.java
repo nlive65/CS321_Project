@@ -13,11 +13,11 @@ import java.io.File;
 public class HomeMenuScene extends Scene {
 
     private GUI_STATE internalStateTransitionSignal = GUI_STATE.HOME_MENU;
-    
+    @Override
     public GUI_STATE getTransition(){
         return this.internalStateTransitionSignal;
     }
-    
+    @Override
     public void ResetTransition(){
         this.internalStateTransitionSignal = GUI_STATE.HOME_MENU;
     }

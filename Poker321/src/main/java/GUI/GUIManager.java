@@ -19,7 +19,9 @@ public class GUIManager implements GraphicsHandler {
     private Game_settings settingsHandler; // Handler for preplay settings scene
     private GameLoopScene gameDisplay; // Handler for the game loop scene
     private Scene[] scenes;
-
+    private String username;
+    private int turnCount;
+    private int betAmount;
     public GUIManager(){        
         this.activeGUI = GUI_STATE.HOME_MENU;
         this.homeHandler = new HomeMenuScene();
@@ -43,13 +45,28 @@ public class GUIManager implements GraphicsHandler {
         this.scenes[this.activeGUI.ordinal()].setVisible(true);   
     }
 
-    
+    private int turn =0;
     public void update(){
-        GUI_STATE checkTransition = this.scenes[this.activeGUI.ordinal()].getTransition();
-        System.out.println(checkTransition);
-        if(this.activeGUI != checkTransition){
-            this.scenes[this.activeGUI.ordinal()].ResetTransition();
-            this.setActiveGUI(checkTransition);
+        try {
+            GUI_STATE checkTransition = this.scenes[this.activeGUI.ordinal()].getTransition();
+            java.lang.Thread.currentThread().sleep(10);
+            if(this.activeGUI != checkTransition){
+                if(this.activeGUI == GUI_STATE.PREPLAY_SETTINGS){
+                    this.username = this.scenes[this.activeGUI.ordinal()].getUserName();
+                    this.betAmount = this.scenes[this.activeGUI.ordinal()].getBetAmount();
+                    this.turnCount = this.scenes[this.activeGUI.ordinal()].getTurnCount();
+                }
+                this.scenes[this.activeGUI.ordinal()].ResetTransition();
+                this.setActiveGUI(checkTransition);
+                if(this.activeGUI == GUI_STATE.GAMELOOP){
+                    this.scenes[this.activeGUI.ordinal()].setUsername(username);
+                    this.scenes[this.activeGUI.ordinal()].setTurnCount(1);
+                    this.scenes[this.activeGUI.ordinal()].setTurn(turn);
+                }
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
     public void render(){

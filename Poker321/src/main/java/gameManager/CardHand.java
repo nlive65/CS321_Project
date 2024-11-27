@@ -5,6 +5,7 @@
 package gameManager;
 //import gameManager.Card;
 import java.util.ArrayList;
+import card.Card;
 /**
  *
  * @author Sam Tindol

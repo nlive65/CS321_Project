@@ -9,6 +9,7 @@ package GUI;
  * @author Nick
  */
 public class Game_settings extends Scene {
+    @Override
     public void ResetTransition(){
         this.internalStateTransitionSignal = GUI_STATE.PREPLAY_SETTINGS;
     };
@@ -19,10 +20,24 @@ public class Game_settings extends Scene {
     private int turnCount;
     private String userName;
     private GUI_STATE internalStateTransitionSignal;
+    @Override
     public GUI_STATE getTransition(){
         return this.internalStateTransitionSignal;
     };
+    @Override
+    public int getBetAmount(){
+        return this.betAmount;
+    }
     
+    @Override
+    public int getTurnCount(){
+        return this.turnCount;
+    }
+    
+    @Override
+    public String getUserName(){
+        return this.userName;
+    }
     public Game_settings() {
         initComponents();
         this.betAmount = this.jSlider3.getValue();
@@ -85,15 +100,10 @@ public class Game_settings extends Scene {
 
         jLabel3.setText("" + this.betAmount*10);
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setText("User name");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameInputHandler(evt);
-            }
-        });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
@@ -164,23 +174,17 @@ public class Game_settings extends Scene {
         jLabel1.setText(""  + this.turnCount);
     }//GEN-LAST:event_jSlider2StateChanged
 
-    private void usernameInputHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputHandler
-        // TODO add your handling code here:
-        this.userName = this.jTextField1.getText();
-    }//GEN-LAST:event_usernameInputHandler
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        this.userName = this.jTextField1.getText();
         if(!(this.turnCount == 0 || this.betAmount == 0 || this.userName.isEmpty())){
             this.internalStateTransitionSignal = GUI_STATE.GAMELOOP;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-        this.userName = this.jTextField1.getText();
-        System.out.println(this.userName);
-    }//GEN-LAST:event_jTextField1KeyTyped
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
