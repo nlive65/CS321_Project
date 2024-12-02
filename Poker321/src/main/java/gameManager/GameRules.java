@@ -98,14 +98,11 @@ public class GameRules extends CardLogic
         else if(p2Value > p1Value)
         {
             p2.increaseBalance(pot);
-            System.out.println(p2.getName() + " wins!");
         }
         else
         {
             p1.increaseBalance(pot/2);
             p2.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p2.getName() + " tied!");
             
         }
     }
@@ -128,46 +125,35 @@ public class GameRules extends CardLogic
         if(p1Highest && !p2Highest && !p3Highest)
         {
             p1.increaseBalance(pot);
-            System.out.println(p1.getName() + " wins!");
         }
         else if(p2Highest && !p1Highest && !p3Highest)
         {
             p2.increaseBalance(pot);
-            System.out.println(p2.getName() + " wins!");
         }
         else if(p3Highest && !p1Highest && !p2Highest)
         {
             p3.increaseBalance(pot);
-            System.out.println(p3.getName() + " wins!");
         }
         else if(p1Highest && p2Highest && !p3Highest)
         {
             p1.increaseBalance(pot/2);
             p2.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p2.getName() + " tied");
         }
         else if(p2Highest && p3Highest && !p1Highest)
         {
             p2.increaseBalance(pot/2);
             p3.increaseBalance(pot/2);
-            
-            System.out.println(p2.getName() + " and " + p3.getName() + " tied");
         }
         else if(p1Highest && p3Highest && !p2Highest)
         {
             p1.increaseBalance(pot/2);
             p3.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p3.getName() + " tied");
         }
         else
         {
             p1.increaseBalance(pot/3);
             p2.increaseBalance(pot/3);
             p3.increaseBalance(pot/3);
-            
-            System.out.println(p1.getName() + ", " + p2.getName() + ", and " + p3.getName() + " tied!");
         }
     }
     
@@ -208,75 +194,55 @@ public class GameRules extends CardLogic
         {
             p1.increaseBalance(pot/2);
             p2.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p2.getName() + " tied");
         }
         else if(p2Highest && p3Highest && !p1Highest && !p4Highest)
         {
             p2.increaseBalance(pot/2);
             p3.increaseBalance(pot/2);
-            
-            System.out.println(p3.getName() + " and " + p4.getName() + " tied");
         }
         else if(p3Highest && p4Highest && !p1Highest && !p2Highest)
         {
             p3.increaseBalance(pot/2);
             p4.increaseBalance(pot/2);
-            
-            System.out.println(p3.getName() + " and " + p4.getName() + " tied");
         }
         else if(p1Highest && p3Highest && !p2Highest && !p4Highest)
         {
             p1.increaseBalance(pot/2);
             p3.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p3.getName() + " tied");
         }
         else if(p1Highest && p4Highest && !p2Highest && !p3Highest)
         {
             p1.increaseBalance(pot/2);
             p4.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p4.getName() + " tied");
         }
         else if(p2Highest && p4Highest && !p1Highest && !p3Highest)
         {
             p2.increaseBalance(pot/2);
             p4.increaseBalance(pot/2);
-            
-            System.out.println(p2.getName() + " and " + p4.getName() + " tied");
         }
         else if(p1Highest && p2Highest && p3Highest && !p4Highest)
         {
             p1.increaseBalance(pot/3);
             p2.increaseBalance(pot/3);
             p3.increaseBalance(pot/3);
-            
-            System.out.println(p1.getName() + ", " + p2.getName() + ", and " + p3.getName() + " tied!");
         }
         else if(p1Highest && p3Highest && p4Highest && !p2Highest)
         {
             p1.increaseBalance(pot/3);
             p3.increaseBalance(pot/3);
             p4.increaseBalance(pot/3);
-            
-            System.out.println(p1.getName() + ", " + p3.getName() + ", and " + p4.getName() + " tied!");
         }
         else if(p2Highest && p3Highest && p4Highest && !p1Highest)
         {
             p2.increaseBalance(pot/3);
             p3.increaseBalance(pot/3);
             p4.increaseBalance(pot/3);
-            
-            System.out.println(p2.getName() + ", " + p3.getName() + ", and " + p4.getName() + " tied!");
         }
         else if(p1Highest && p2Highest && p4Highest && !p3Highest)
         {
             p1.increaseBalance(pot/3);
             p2.increaseBalance(pot/3);
             p4.increaseBalance(pot/3);
-            
-            System.out.println(p1.getName() + ", " + p2.getName() + ", and " + p4.getName() + " tied!");
         }
         else
         {
@@ -284,8 +250,6 @@ public class GameRules extends CardLogic
             p2.increaseBalance(pot/4);
             p3.increaseBalance(pot/4);
             p4.increaseBalance(pot/4);
-            
-            System.out.println("Everyone Tied!");
         }
             
     }

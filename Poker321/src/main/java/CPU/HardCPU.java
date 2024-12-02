@@ -23,7 +23,7 @@ public class HardCPU extends CPU
     // method to evaluate hand strength 
     private int EvaluateHandStrength() 
     {
-        
+        return 0;
     }
     
     // method to make move based on handstrength
