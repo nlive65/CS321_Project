@@ -20,7 +20,7 @@ public abstract class CPU
     // constructor
     public CPU()
     {
-                
+
     }
 
     //method for making a move in the game to be implemented by subclasses    

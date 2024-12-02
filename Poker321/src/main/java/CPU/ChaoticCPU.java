@@ -24,7 +24,7 @@ public class ChaoticCPU extends CPU
     // constructor
     public ChaoticCPU(String name, int chips) 
     {
-        
+         
     }
 
     // method to make move randomly

@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package gameManager;
+
 import card.CardHand;
+
 /**
  *
  * @author Luke
@@ -16,17 +13,19 @@ import card.CardHand;
 public class Player {
     
     // Variables needed
-    private final String name;
+    private  String name;
     private int balance;
     private CardHand hand = new CardHand();
     private boolean isActive;
     private int currentBet;
+    private int turn;
     
     
     // Constructor
     public Player(String name, int initialBalance) 
     {
         this.name = name;
+        this.turn = 0;
         this.balance = initialBalance;
         hand = new CardHand();
         this.isActive = true;
@@ -39,7 +38,21 @@ public class Player {
     {
         return name;
     }
+    
+    public void setName(String inputName)
+    {
+        name = inputName;
+    }
 
+    public int getTurn()
+    {
+        return turn;
+    }
+    
+    public void setTurn(int turn)
+    {
+        this.turn = turn;
+    }
     public CardHand GetCardHand()
     {
         return hand;

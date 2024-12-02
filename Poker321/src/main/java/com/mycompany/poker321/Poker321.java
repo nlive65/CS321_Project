@@ -10,7 +10,8 @@ import card.CardDeck;
 import card.CardLogic;
 import gameManager.GameRules;
 import gameManager.Player;
-
+import GUI.GUIManager;
+import GUI.GUI_STATE;
 
 
 /**
@@ -21,21 +22,42 @@ public class Poker321 {
 
     public static void main(String[] args) 
     {
+        GUIManager gui = new GUIManager();
         // Declaring the rules and deck object
         GameRules rules = new GameRules();
         CardDeck deck = new CardDeck();
         
         // Placeholders for info from GUI
-        String playerName = "Hold";
-        int chipAmount = 200;
-        int rounds = 5;
+        while(gui.getState() != GUI_STATE.GAMELOOP){
+            gui.update();
+            if(gui.getResumeGame()){
+                //Game manager load the game
+            }
+        }
+        for(int count =0; count < 10; count ++){//Basically just load in case gameloop doesn't work
+            try{
+                gui.update();
+                java.lang.Thread.currentThread().sleep(10);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
         
+        String playerName = gui.getUserName();
+        int chipAmount = gui.getStartingMoney();
+        int rounds = gui.getMaxTurns();
         // Initiate the players
         Player user = new Player(playerName, chipAmount);
-        Player barry = new Player("Barry", chipAmount);
-        Player jerry = new Player("Jerry", chipAmount);
-        Player larry = new Player("Larry", chipAmount);
-        
+        Player jeff = new Player("Jeff", chipAmount);
+        Player eliza = new Player("Eliza", chipAmount);
+        Player erin = new Player("Erin", chipAmount);
+        gui.setMoney(0, chipAmount);
+        gui.setMoney(1, chipAmount);        
+        gui.setMoney(2,chipAmount);
+        gui.setMoney(3,chipAmount);
+        gui.setMoney(4,0);
+
         // Dealer variable will choose who the dealer is
         Player dealer = null;
         
@@ -43,25 +65,33 @@ public class Poker321 {
         // deciding who the next dealer will be
         for(int turn = 1; turn <= rounds && user.getBalance() > 0; turn++)
         {
+            gui.unDeal();
+            gui.setTurnCount(turn);
+            gui.update();
             if(turn == 1 || turn == 5 || turn == 9)
             {
-                rules.Deal(deck, user, barry, jerry, larry);
+                rules.Deal(deck, user, jeff, eliza, erin);
+                gui.deal();//deal to opponents
+                //METHOD TO GET hand off player
                 dealer = user;
             }
             else if(turn == 2 || turn == 6 || turn == 10)
             {
-                rules.Deal(deck, barry, jerry, larry, user);
-                dealer = barry;
+                rules.Deal(deck, jeff, eliza, erin, user);
+                gui.deal();
+                dealer = jeff;
             }
             else if(turn == 3 || turn == 7)
             {
-                rules.Deal(deck, jerry, larry, user, barry);
-                dealer = jerry;
+                rules.Deal(deck, eliza, erin, user, jeff);
+                gui.deal();
+                dealer = eliza;
             }
             else
             {
-                rules.Deal(deck, larry, user, barry, jerry);
-                dealer = larry;
+                rules.Deal(deck, erin, user, jeff, eliza);
+                gui.deal();
+                dealer = erin;
             }
             
             // Declare a card variable for a card drawn from the deck
@@ -73,9 +103,10 @@ public class Poker321 {
                 // !!! This Card will be a card that is displayed in the middle of the table !!!
                 
                 user.GetCardHand().AddToFullHand(pulledCard);
-                barry.GetCardHand().AddToFullHand(pulledCard);
-                jerry.GetCardHand().AddToFullHand(pulledCard);
-                larry.GetCardHand().AddToFullHand(pulledCard);
+                jeff.GetCardHand().AddToFullHand(pulledCard);
+                eliza.GetCardHand().AddToFullHand(pulledCard);
+                erin.GetCardHand().AddToFullHand(pulledCard);
+                //PUSH CARHAND TO GUI REVEAL
                 
             }
             
@@ -83,16 +114,16 @@ public class Poker321 {
             {
                 pulledCard = deck.PullTopCard();
                 // This card will be siplayed in the middle of the table
-                
+                gui.setTurn(betTurn--);
                 user.GetCardHand().AddToFullHand(pulledCard);
-                barry.GetCardHand().AddToFullHand(pulledCard);
-                jerry.GetCardHand().AddToFullHand(pulledCard);
-                larry.GetCardHand().AddToFullHand(pulledCard);
+                jeff.GetCardHand().AddToFullHand(pulledCard);
+                eliza.GetCardHand().AddToFullHand(pulledCard);
+                erin.GetCardHand().AddToFullHand(pulledCard);
                 
                 int userBet = 0;
-                int barryBet = 0;
-                int jerryBet = 0;
-                int larryBet = 0;
+                int jeffBet = 0;
+                int elizaBet = 0;
+                int erinBet = 0;
                 
                 if(dealer.getName() == user.getName())
                 {
@@ -101,67 +132,66 @@ public class Poker321 {
                     // user makes bet
                     rules.AddToPot(userBet);
                     
-                    // barry Bets
-                    rules.AddToPot(barryBet);
+                    // jeff Bets
+                    rules.AddToPot(jeffBet);
                     
-                    // jerry bets
-                    rules.AddToPot(jerryBet);
+                    // eliza bets
+                    rules.AddToPot(elizaBet);
                     
-                    // larry bets
-                    rules.AddToPot(larryBet);
+                    // erin bets
+                    rules.AddToPot(erinBet);
                 }
-                else if(dealer.getName() == barry.getName())
+                else if(dealer.getName() == jeff.getName())
                 {
-                    // PLay game with barry as dealer
-                    // barry bets
-                    rules.AddToPot(barryBet);
+                    // PLay game with jeff as dealer
+                    // jeff bets
+                    rules.AddToPot(jeffBet);
                     
-                    // jerry bets
-                    rules.AddToPot(jerryBet);
+                    // eliza bets
+                    rules.AddToPot(elizaBet);
                     
-                    // larry bets
-                    rules.AddToPot(larryBet);
+                    // erin bets
+                    rules.AddToPot(erinBet);
                     
                     // user bets
                     rules.AddToPot(userBet);
                 }
-                else if(dealer.getName() == jerry.getName())
+                else if(dealer.getName() == eliza.getName())
                 {
-                    // Play with jerry as the dealer
-                    // jerry bets
-                    rules.AddToPot(jerryBet);
+                    // Play with eliza as the dealer
+                    // eliza bets
+                    rules.AddToPot(elizaBet);
                     
-                    // larry bets
-                    rules.AddToPot(larryBet);
+                    // erin bets
+                    rules.AddToPot(erinBet);
                     
                     // user bets
                     rules.AddToPot(userBet);
                     
-                    // barry bets
-                    rules.AddToPot(barryBet);
+                    // jeff bets
+                    rules.AddToPot(jeffBet);
                 }
                 else
                 {
-                    // Play with larry as the dealer
-                    // larry bets
-                    rules.AddToPot(larryBet);
+                    // Play with erin as the dealer
+                    // erin bets
+                    rules.AddToPot(erinBet);
                     
                     // user bets
                     rules.AddToPot(userBet);
                     
-                    // barry bets
-                    rules.AddToPot(barryBet);
+                    // jeff bets
+                    rules.AddToPot(jeffBet);
                     
-                    // jerry bets
-                    rules.AddToPot(jerryBet);
+                    // eliza bets
+                    rules.AddToPot(elizaBet);
                 }
             }
             // Showdown
-            rules.DeclareWinner(user, barry, jerry, larry);
-            rules.ResetPot();
+            rules.DeclareWinner(user, jeff, eliza, erin);
+            //gui.setWinner()//Get the winner on the GUI
+            //rules.ResetPot();
             deck.ResetDeck();
         }
-        
-        
     }
 }
