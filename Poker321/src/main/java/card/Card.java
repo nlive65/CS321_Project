@@ -19,9 +19,8 @@ public class Card
     
     public Card()
     {
-        
+                
     }
-    
     public Card(int myValue, char mySuit)
     {
         value = myValue;
