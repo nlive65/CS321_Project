@@ -1,5 +1,6 @@
 gameManager\GameRules.class
 GUI\Game_settings$3.class
+GUI\GameLoopScene$5.class
 gameManager\PLAYER_ACTIONS.class
 GUI\GraphicsHandler.class
 card\CardLogic.class
@@ -10,12 +11,14 @@ gameManager\CardDeck.class
 CPU\ChaoticCPU.class
 com\mycompany\poker321\GAME_EVENTS.class
 GUI\Game_settings$5.class
+GUI\GameLoopScene$6.class
 gameManager\CardHand.class
 com\mycompany\poker321\Poker321.class
 GUI\GameLoopScene$1.class
 GUI\HomeMenuScene$1.class
 GUI\Game_settings.class
 CPU\HardCPU.class
+GUI\GameLoopScene$4.class
 GUI\Game_settings$4.class
 GUI\GUIManager.class
 CPU\CPU.class

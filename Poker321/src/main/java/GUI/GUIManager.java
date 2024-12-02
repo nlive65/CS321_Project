@@ -6,6 +6,7 @@ package GUI;
 import com.mycompany.poker321.GAME_EVENTS;
 import java.util.HashSet;
 import java.util.Set;
+import card.CardHand;
 import gameManager.PLAYER_ACTIONS;
 /**
  *
@@ -93,6 +94,11 @@ public class GUIManager implements GraphicsHandler {
             this.turn = newTurn;
         }
     }
+    public void setTurnCount(int newTurn){
+        if(this.activeGUI == GUI_STATE.GAMELOOP){
+            this.gameDisplay.setTUrnCount(newTurn);
+        }
+    }
     public void setMoney(int playerId, int money){
         if(this.activeGUI == GUI_STATE.GAMELOOP){
             this.gameDisplay.setPlayerMoney(playerId,money);
@@ -109,12 +115,20 @@ public class GUIManager implements GraphicsHandler {
             this.gameDisplay.unDealCards();
         }
     }
+    public void reveal(int playerID, CardHand newCard){
+        this.gameDisplay.reveal(playerID,newCard);
+    }
     private int raiseAmount;
-    public int getRaisAmount(){
+    public int getRaiseAmount(){
         return raiseAmount;
     }
     public PLAYER_ACTIONS getPlayerAction(){
         return this.gameDisplay.getTakenAction();
+    }
+    public void setWinner(int playerID){
+        if(this.activeGUI == GUI_STATE.GAMELOOP){
+            this.gameDisplay.setWinner(playerID);
+        }
     }
     private void runGameloop(){
         this.saveGame = this.gameDisplay.getSaveGame();
