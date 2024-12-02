@@ -26,6 +26,7 @@ public class HomeMenuScene extends Scene {
      */
     public HomeMenuScene() {
         initComponents();
+        this.resumeGame = false;
     }
 
     /**
@@ -87,7 +88,10 @@ public class HomeMenuScene extends Scene {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private boolean resumeGame;
+    public boolean getResumeGame(){
+        return this.resumeGame;
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.internalStateTransitionSignal = GUI_STATE.PREPLAY_SETTINGS;
@@ -98,6 +102,7 @@ public class HomeMenuScene extends Scene {
         File file = new File(this.filePath);
         if(file.exists()){
             // SEND SIGNAL TO RESUME A GAME
+            this.resumeGame = true;
             this.internalStateTransitionSignal = GUI_STATE.GAMELOOP;
         }
         // Does nothing if there is no game to resume

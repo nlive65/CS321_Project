@@ -24,6 +24,8 @@ public class GUIManager implements GraphicsHandler {
     private String username;
     private int turnCount;
     private int betAmount;
+    private int maxMoney;
+    private int maxTurns;
     private boolean saveGame;
     public GUIManager(){        
         this.activeGUI = GUI_STATE.HOME_MENU;
@@ -36,7 +38,21 @@ public class GUIManager implements GraphicsHandler {
         }
         this.setActiveGUI(this.activeGUI);
         this.saveGame = false;
+        this.maxMoney = 0;
+        this.maxTurns = 0;
+        this.username = "";
     }
+
+    public int getStartingMoney(){
+        return this.maxMoney;
+    }
+    public int getMaxTurns(){
+        return this.maxTurns;
+    }
+    public String getUserName(){
+        return username;
+    }
+    
     /**
      * Sets the active GUI state.
      * 
@@ -56,6 +72,12 @@ public class GUIManager implements GraphicsHandler {
         this.gameDisplay.setSaveGame(false);
         this.saveGame = false;
     } 
+    public boolean getResumeGame(){
+        if(this.activeGUI == GUI_STATE.HOME_MENU){
+            return homeHandler.getResumeGame();
+        }
+        return false;
+    }
     
     private int turn =0;
     public void update(){
@@ -65,8 +87,8 @@ public class GUIManager implements GraphicsHandler {
             if(this.activeGUI != checkTransition){
                 if(this.activeGUI == GUI_STATE.PREPLAY_SETTINGS){
                     this.username = this.scenes[this.activeGUI.ordinal()].getUserName();
-                    this.betAmount = this.scenes[this.activeGUI.ordinal()].getBetAmount();
-                    this.turnCount = this.scenes[this.activeGUI.ordinal()].getTurnCount();
+                    this.maxMoney = this.scenes[this.activeGUI.ordinal()].getBetAmount();
+                    this.maxTurns = this.scenes[this.activeGUI.ordinal()].getTurnCount();
                 }
                 this.scenes[this.activeGUI.ordinal()].ResetTransition();
                 this.setActiveGUI(checkTransition);
@@ -129,6 +151,9 @@ public class GUIManager implements GraphicsHandler {
         if(this.activeGUI == GUI_STATE.GAMELOOP){
             this.gameDisplay.setWinner(playerID);
         }
+    }
+    public GUI_STATE getState(){
+        return this.activeGUI;
     }
     private void runGameloop(){
         this.saveGame = this.gameDisplay.getSaveGame();
