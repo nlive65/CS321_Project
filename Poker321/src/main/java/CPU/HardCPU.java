@@ -17,13 +17,13 @@ public class HardCPU extends CPU
     // constructor
     public HardCPU(String name, int chips) 
     {
-    
+        super(name,chips);
     }
 
     // method to evaluate hand strength 
     private int EvaluateHandStrength() 
     {
-        
+        return 1;
     }
     
     // method to make move based on handstrength

@@ -13,11 +13,11 @@ import java.io.File;
 public class HomeMenuScene extends Scene {
 
     private GUI_STATE internalStateTransitionSignal = GUI_STATE.HOME_MENU;
-    
+    @Override
     public GUI_STATE getTransition(){
         return this.internalStateTransitionSignal;
     }
-    
+    @Override
     public void ResetTransition(){
         this.internalStateTransitionSignal = GUI_STATE.HOME_MENU;
     }
@@ -26,6 +26,7 @@ public class HomeMenuScene extends Scene {
      */
     public HomeMenuScene() {
         initComponents();
+        this.resumeGame = false;
     }
 
     /**
@@ -65,16 +66,13 @@ public class HomeMenuScene extends Scene {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jButton3)))
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addGap(127, 127, 127)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton1)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +88,10 @@ public class HomeMenuScene extends Scene {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private boolean resumeGame;
+    public boolean getResumeGame(){
+        return this.resumeGame;
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.internalStateTransitionSignal = GUI_STATE.PREPLAY_SETTINGS;
@@ -101,6 +102,7 @@ public class HomeMenuScene extends Scene {
         File file = new File(this.filePath);
         if(file.exists()){
             // SEND SIGNAL TO RESUME A GAME
+            this.resumeGame = true;
             this.internalStateTransitionSignal = GUI_STATE.GAMELOOP;
         }
         // Does nothing if there is no game to resume

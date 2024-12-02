@@ -20,7 +20,7 @@ public abstract class CPU extends Player
     // constructor
     public CPU(String name, int chips) 
     {
-        
+        super(name,chips);
     }
 
     //method for making a move in the game to be implemented by subclasses    
