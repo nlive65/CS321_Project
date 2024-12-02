@@ -21,12 +21,13 @@ public class CardHand extends Card
     private ArrayList<Card> twoCardHand = new ArrayList<>();
     private ArrayList<Card> fullHand = new ArrayList<>();
     
-    
+    // Retrun the two card hand ArrayList
     public ArrayList<Card> GetTwoCardHand()
     {
         return twoCardHand;
     }
     
+    // Retunr the full hand ArrayList
     public ArrayList<Card> GetFullHand()
     {
         return fullHand;
