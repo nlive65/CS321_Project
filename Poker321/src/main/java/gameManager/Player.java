@@ -2,8 +2,6 @@ package gameManager;
 
 import card.CardHand;
 
-package gameManager;
-import card.CardHand;
 /**
  *
  * @author Luke
