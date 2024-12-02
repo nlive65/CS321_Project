@@ -96,7 +96,7 @@ public class GUIManager implements GraphicsHandler {
     }
     public void setTurnCount(int newTurn){
         if(this.activeGUI == GUI_STATE.GAMELOOP){
-            this.gameDisplay.setTUrnCount(newTurn);
+            this.gameDisplay.setTurnCount(newTurn);
         }
     }
     public void setMoney(int playerId, int money){
