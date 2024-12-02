@@ -95,7 +95,7 @@ public class GUIManager implements GraphicsHandler {
                 if(this.activeGUI == GUI_STATE.GAMELOOP){
                     this.scenes[this.activeGUI.ordinal()].setUsername(username);
                     this.scenes[this.activeGUI.ordinal()].setTurnCount(1);
-                    this.scenes[this.activeGUI.ordinal()].setTurn(turn);
+                    //this.scenes[this.activeGUI.ordinal()].setTurn(turn);
                 }
             }
             else{
@@ -114,6 +114,7 @@ public class GUIManager implements GraphicsHandler {
     public void setTurn(int newTurn){
         if(newTurn < 4){
             this.turn = newTurn;
+            this.gameDisplay.setTurn(newTurn);
         }
     }
     public void setTurnCount(int newTurn){

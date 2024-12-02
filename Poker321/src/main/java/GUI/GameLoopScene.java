@@ -112,6 +112,7 @@ public class GameLoopScene extends Scene {
         switch(playerId){
             case 0:
                 this.jLabel13.setText("$" + money);
+                
                 break;
             case 1:
                 this.jLabel10.setText("$" + money);
@@ -125,6 +126,12 @@ public class GameLoopScene extends Scene {
             case 4:
                 this.jLabel21.setText("Pot:$" + money);
                 break;
+        }
+        try{
+            java.lang.Thread.currentThread().sleep(10);
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
     private void setPlayerButtons(boolean setTurn){
@@ -190,9 +197,10 @@ public class GameLoopScene extends Scene {
             case 0://Player
                 Card card1 = hand.get(0);
                 Card card2 = hand.get(1);
-                
-                jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card1.GetSuit() + card1.GetValue()+ ".png"))); // NOI18N
-                jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card2.GetSuit() + card2.GetValue()+ ".png"))); // NOI18N
+                System.out.println(Character.toUpperCase(card1.GetSuit()));
+                System.out.println(card1.GetValue());
+                jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
+                jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card2.GetSuit()) + card2.GetValue()+ ".png"))); // NOI18N
                 jLabel3.setVisible(true);
                 jLabel20.setVisible(true);
                 break;
@@ -200,8 +208,8 @@ public class GameLoopScene extends Scene {
                 card1 = hand.get(0);
                 card2 = hand.get(1);
                 
-                jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card1.GetSuit() + card1.GetValue()+ ".png"))); // NOI18N
-                jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card2.GetSuit() + card2.GetValue()+ ".png"))); // NOI18N
+                jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
+                jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card2.GetSuit()) + card2.GetValue()+ ".png"))); // NOI18N
                 jLabel14.setVisible(true);
                 jLabel15.setVisible(true);
                 break;
@@ -209,8 +217,8 @@ public class GameLoopScene extends Scene {
                 card1 = hand.get(0);
                 card2 = hand.get(1);
                 
-                jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card1.GetSuit() + card1.GetValue()+ ".png"))); // NOI18N
-                jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card2.GetSuit() + card2.GetValue()+ ".png"))); // NOI18N
+                jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
+                jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card2.GetSuit()) + card2.GetValue()+ ".png"))); // NOI18N
                 jLabel18.setVisible(true);
                 jLabel19.setVisible(true);
                 break;
@@ -218,30 +226,31 @@ public class GameLoopScene extends Scene {
                 card1 = hand.get(0);
                 card2 = hand.get(1);
                 
-                jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card1.GetSuit() + card1.GetValue()+ ".png"))); // NOI18N
-                jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card2.GetSuit() + card2.GetValue()+ ".png"))); // NOI18N
+                jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
+                jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card2.GetSuit()) + card2.GetValue()+ ".png"))); // NOI18N
                 jLabel16.setVisible(true);
                 jLabel17.setVisible(true);
                 break; 
             case 4://flop
+                hand = newCard.GetFullHand();
                 card1 = hand.get(0);
                 card2 = hand.get(1);
                 Card card3 = hand.get(2);
-                jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card1.GetSuit() + card1.GetValue()+ ".png"))); // NOI18N
-                jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card2.GetSuit() + card2.GetValue()+ ".png"))); // NOI18N
-                jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card3.GetSuit() + card3.GetValue()+ ".png"))); // NOI18N
+                jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
+                jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card2.GetSuit()) + card2.GetValue()+ ".png"))); // NOI18N
+                jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card3.GetSuit()) + card3.GetValue()+ ".png"))); // NOI18N
                 jLabel22.setVisible(true);
                 jLabel23.setVisible(true);
                 jLabel24.setVisible(true);
                 break;
             case 5://Turn
                 card1 = hand.get(0);
-                jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card1.GetSuit() + card1.GetValue()+ ".png"))); // NOI18N
+                jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
                 jLabel25.setVisible(true);
                 break;
             case 6://River
                 card1 = hand.get(0);
-                jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images"+card1.GetSuit() + card1.GetValue()+ ".png"))); // NOI18N
+                jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
                 jLabel26.setVisible(true);
                 break;
         }
@@ -384,11 +393,11 @@ public class GameLoopScene extends Scene {
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Back - Top Down 88x124.png"))); // NOI18N
         getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
 
-        jLabel3.setText("jLabel3");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, -1, -1));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Back - Top Down 88x124.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, -1, -1));
 
-        jLabel20.setText("jLabel20");
-        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, -1, -1));
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Back - Top Down 88x124.png"))); // NOI18N
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, -1, -1));
 
         jLabel21.setText("Pot:");
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, -1, -1));
