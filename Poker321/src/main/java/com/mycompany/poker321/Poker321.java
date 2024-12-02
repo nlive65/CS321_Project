@@ -12,7 +12,7 @@ import gameManager.GameRules;
 import gameManager.Player;
 import GUI.GUIManager;
 import GUI.GUI_STATE;
-
+import gameManager.PLAYER_ACTIONS;
 
 /**
  *
@@ -98,6 +98,7 @@ public class Poker321 {
                 
             }
             //ORIGINAL BETTING NEEDS TO GO HERE
+            
             // Declare a card variable for a card drawn from the deck
             Card pulledCard = null;
             CardHand flop = new CardHand();
@@ -111,7 +112,6 @@ public class Poker321 {
                 eliza.GetCardHand().AddToFullHand(pulledCard);
                 erin.GetCardHand().AddToFullHand(pulledCard);
                 System.out.println(flop.GetFullHand().get(index));
-                //PUSH CARHAND TO GUI REVEAL
             }
             gui.reveal(4, flop);
             for(int betTurn = 1; betTurn <= 3; betTurn++)
@@ -134,6 +134,8 @@ public class Poker321 {
                     
                     // PLay game with the user as dealer
                     // user makes bet
+                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    //check for raise or bet amount
                     rules.AddToPot(userBet);
                     
                     // jeff Bets
@@ -158,6 +160,8 @@ public class Poker321 {
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    //check for raise or bet amount
                     rules.AddToPot(userBet);
                 }
                 else if(dealer.getName() == eliza.getName())
@@ -170,7 +174,10 @@ public class Poker321 {
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    //check for raise or bet amount
                     rules.AddToPot(userBet);
+                    
                     
                     // jeff bets
                     rules.AddToPot(jeffBet);
@@ -182,6 +189,8 @@ public class Poker321 {
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    //check for raise or bet amount
                     rules.AddToPot(userBet);
                     
                     // jeff bets
@@ -196,6 +205,7 @@ public class Poker321 {
             //gui.setWinner()//Get the winner on the GUI
             //rules.ResetPot();
             deck.ResetDeck();
+            gui.update();
         }
     }
 }

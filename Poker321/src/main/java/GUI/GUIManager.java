@@ -20,13 +20,13 @@ public class GUIManager implements GraphicsHandler {
     private HomeMenuScene homeHandler; // Handler for the home menu scene
     private Game_settings settingsHandler; // Handler for preplay settings scene
     private GameLoopScene gameDisplay; // Handler for the game loop scene
-    private Scene[] scenes;
-    private String username;
-    private int turnCount;
-    private int betAmount;
-    private int maxMoney;
-    private int maxTurns;
-    private boolean saveGame;
+    private Scene[] scenes; //Array of the different GUI windows
+    private String username; // Name of the user
+    private int turnCount; //Number of rounds to play
+    private int betAmount; // Amount of money put down by player
+    private int maxMoney; // Starting money
+    private int maxTurns; //Maximum number of rounds
+    private boolean saveGame; //Should the game be saved
     public GUIManager(){        
         this.activeGUI = GUI_STATE.HOME_MENU;
         this.homeHandler = new HomeMenuScene();
@@ -42,7 +42,7 @@ public class GUIManager implements GraphicsHandler {
         this.maxTurns = 0;
         this.username = "";
     }
-
+    //Returns the starting amount of money
     public int getStartingMoney(){
         return this.maxMoney;
     }
@@ -148,6 +148,21 @@ public class GUIManager implements GraphicsHandler {
     public PLAYER_ACTIONS getPlayerAction(){
         return this.gameDisplay.getTakenAction();
     }
+    public PLAYER_ACTIONS awaitPlayerAction(){
+        this.raiseAmount = 0;
+            while(this.gameDisplay.getTakenAction() == PLAYER_ACTIONS.IDLE){ //Wait for player to make up their minds fr
+                try{
+                    java.lang.Thread.currentThread().sleep(10);
+                }
+                catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+            if(this.gameDisplay.getTakenAction() == PLAYER_ACTIONS.RAISE){
+                this.raiseAmount = this.gameDisplay.getRaiseAmount();
+            }
+        return this.gameDisplay.getTakenAction();
+    }
     public void setWinner(int playerID){
         if(this.activeGUI == GUI_STATE.GAMELOOP){
             this.gameDisplay.setWinner(playerID);
@@ -164,20 +179,6 @@ public class GUIManager implements GraphicsHandler {
             }
             catch(Exception ex){
                 ex.printStackTrace();
-            }
-        }
-        if(this.turn == 0 ){
-            this.raiseAmount = 0;
-            while(this.gameDisplay.getTakenAction() == PLAYER_ACTIONS.IDLE){ //Wait for player to make up their minds fr
-                try{
-                    java.lang.Thread.currentThread().sleep(10);
-                }
-                catch(Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-            if(this.gameDisplay.getTakenAction() == PLAYER_ACTIONS.RAISE){
-                this.raiseAmount = this.gameDisplay.getRaiseAmount();
             }
         }
     }
