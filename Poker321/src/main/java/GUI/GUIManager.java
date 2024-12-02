@@ -6,6 +6,7 @@ package GUI;
 import com.mycompany.poker321.GAME_EVENTS;
 import java.util.HashSet;
 import java.util.Set;
+import gameManager.PLAYER_ACTIONS;
 /**
  *
  * @author Nick
@@ -22,6 +23,7 @@ public class GUIManager implements GraphicsHandler {
     private String username;
     private int turnCount;
     private int betAmount;
+    private boolean saveGame;
     public GUIManager(){        
         this.activeGUI = GUI_STATE.HOME_MENU;
         this.homeHandler = new HomeMenuScene();
@@ -32,6 +34,7 @@ public class GUIManager implements GraphicsHandler {
             this.scenes[i].setVisible(false);
         }
         this.setActiveGUI(this.activeGUI);
+        this.saveGame = false;
     }
     /**
      * Sets the active GUI state.
@@ -44,7 +47,15 @@ public class GUIManager implements GraphicsHandler {
         this.activeGUI = state;
         this.scenes[this.activeGUI.ordinal()].setVisible(true);   
     }
-
+    public boolean getSaveGame(){
+        return this.saveGame;
+    }
+    
+    public void saveGameAck(){
+        this.gameDisplay.setSaveGame(false);
+        this.saveGame = false;
+    } 
+    
     private int turn =0;
     public void update(){
         try {
@@ -64,13 +75,71 @@ public class GUIManager implements GraphicsHandler {
                     this.scenes[this.activeGUI.ordinal()].setTurn(turn);
                 }
             }
-
+            else{
+                if(this.activeGUI == GUI_STATE.GAMELOOP){
+                    runGameloop();
+                }
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
     public void render(){
         
+    }
+    
+    public void setTurn(int newTurn){
+        if(newTurn < 4){
+            this.turn = newTurn;
+        }
+    }
+    public void setMoney(int playerId, int money){
+        if(this.activeGUI == GUI_STATE.GAMELOOP){
+            this.gameDisplay.setPlayerMoney(playerId,money);
+        }
+    }
+    public void deal(){
+        if(this.activeGUI == GUI_STATE.GAMELOOP){
+            this.gameDisplay.dealOpponentCards();
+        }
+    }
+    
+    public void unDeal(){
+        if(this.activeGUI == GUI_STATE.GAMELOOP){
+            this.gameDisplay.unDealCards();
+        }
+    }
+    private int raiseAmount;
+    public int getRaisAmount(){
+        return raiseAmount;
+    }
+    public PLAYER_ACTIONS getPlayerAction(){
+        return this.gameDisplay.getTakenAction();
+    }
+    private void runGameloop(){
+        this.saveGame = this.gameDisplay.getSaveGame();
+        while(!this.gameDisplay.getNextStart()){ //Wait for player to comprehend the consequences 
+            try{
+                java.lang.Thread.currentThread().sleep(10);
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        if(this.turn == 0 ){
+            this.raiseAmount = 0;
+            while(this.gameDisplay.getTakenAction() == PLAYER_ACTIONS.IDLE){ //Wait for player to make up their minds fr
+                try{
+                    java.lang.Thread.currentThread().sleep(10);
+                }
+                catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+            if(this.gameDisplay.getTakenAction() == PLAYER_ACTIONS.RAISE){
+                this.raiseAmount = this.gameDisplay.getRaiseAmount();
+            }
+        }
     }
 }
 
