@@ -2,6 +2,8 @@ package gameManager;
 
 import card.CardHand;
 
+package gameManager;
+import card.CardHand;
 /**
  *
  * @author Luke
@@ -15,7 +17,7 @@ public class Player {
     // Variables needed
     private  String name;
     private int balance;
-    private CardHand hand;
+    private CardHand hand = new CardHand();
     private boolean isActive;
     private int currentBet;
     private int turn;
