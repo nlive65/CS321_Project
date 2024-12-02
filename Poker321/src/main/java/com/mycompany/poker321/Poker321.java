@@ -12,7 +12,7 @@ import gameManager.GameRules;
 import gameManager.Player;
 import GUI.GUIManager;
 import GUI.GUI_STATE;
-
+import gameManager.PLAYER_ACTIONS;
 
 /**
  *
@@ -34,16 +34,6 @@ public class Poker321 {
                 //Game manager load the game
             }
         }
-        for(int count =0; count < 10; count ++){//Basically just load in case gameloop doesn't work
-            try{
-                gui.update();
-                java.lang.Thread.currentThread().sleep(10);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-        
         String playerName = gui.getUserName();
         int chipAmount = gui.getStartingMoney();
         int rounds = gui.getMaxTurns();
@@ -57,6 +47,8 @@ public class Poker321 {
         gui.setMoney(2,chipAmount);
         gui.setMoney(3,chipAmount);
         gui.setMoney(4,0);
+        
+        
 
         // Dealer variable will choose who the dealer is
         Player dealer = null;
@@ -67,49 +59,61 @@ public class Poker321 {
         {
             gui.unDeal();
             gui.setTurnCount(turn);
+            
             gui.update();
             if(turn == 1 || turn == 5 || turn == 9)
             {
                 rules.Deal(deck, user, jeff, eliza, erin);
+                gui.setTurn(0);
                 gui.deal();//deal to opponents
+                gui.reveal(0,user.GetCardHand());
                 //METHOD TO GET hand off player
                 dealer = user;
             }
             else if(turn == 2 || turn == 6 || turn == 10)
             {
                 rules.Deal(deck, jeff, eliza, erin, user);
+                gui.setTurn(1);
                 gui.deal();
+                gui.reveal(0,user.GetCardHand());
                 dealer = jeff;
+                
             }
             else if(turn == 3 || turn == 7)
             {
                 rules.Deal(deck, eliza, erin, user, jeff);
+                gui.setTurn(2);
                 gui.deal();
+                gui.reveal(0,user.GetCardHand());
                 dealer = eliza;
+                
             }
             else
             {
                 rules.Deal(deck, erin, user, jeff, eliza);
+                gui.setTurn(3);
                 gui.deal();
+                gui.reveal(0,user.GetCardHand());
                 dealer = erin;
+                
             }
+            //ORIGINAL BETTING NEEDS TO GO HERE
             
             // Declare a card variable for a card drawn from the deck
             Card pulledCard = null;
-            
-            for(int index = 0; index < 2; index++)
+            CardHand flop = new CardHand();
+            for(int index = 0; index < 3; index++)
             {
                 pulledCard = deck.PullTopCard();
+                flop.AddToFullHand(pulledCard);
                 // !!! This Card will be a card that is displayed in the middle of the table !!!
-                
                 user.GetCardHand().AddToFullHand(pulledCard);
                 jeff.GetCardHand().AddToFullHand(pulledCard);
                 eliza.GetCardHand().AddToFullHand(pulledCard);
                 erin.GetCardHand().AddToFullHand(pulledCard);
-                //PUSH CARHAND TO GUI REVEAL
-                
+                System.out.println(flop.GetFullHand().get(index));
             }
-            
+            gui.reveal(4, flop);
             for(int betTurn = 1; betTurn <= 3; betTurn++)
             {
                 pulledCard = deck.PullTopCard();
@@ -130,6 +134,8 @@ public class Poker321 {
                     
                     // PLay game with the user as dealer
                     // user makes bet
+                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    //check for raise or bet amount
                     rules.AddToPot(userBet);
                     
                     // jeff Bets
@@ -154,6 +160,8 @@ public class Poker321 {
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    //check for raise or bet amount
                     rules.AddToPot(userBet);
                 }
                 else if(dealer.getName() == eliza.getName())
@@ -166,7 +174,10 @@ public class Poker321 {
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    //check for raise or bet amount
                     rules.AddToPot(userBet);
+                    
                     
                     // jeff bets
                     rules.AddToPot(jeffBet);
@@ -178,6 +189,8 @@ public class Poker321 {
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    //check for raise or bet amount
                     rules.AddToPot(userBet);
                     
                     // jeff bets
@@ -192,6 +205,7 @@ public class Poker321 {
             //gui.setWinner()//Get the winner on the GUI
             //rules.ResetPot();
             deck.ResetDeck();
+            gui.update();
         }
     }
 }
