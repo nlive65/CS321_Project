@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.poker;
+package gameManager;
+
+import card.CardHand;
 
 /**
  *
@@ -15,19 +13,21 @@ package com.mycompany.poker;
 public class Player {
     
     // Variables needed
-    private final String name;
+    private  String name;
     private int balance;
     private CardHand hand;
     private boolean isActive;
     private int currentBet;
+    private int turn;
     
     
     // Constructor
     public Player(String name, int initialBalance) 
     {
         this.name = name;
+        this.turn = 0;
         this.balance = initialBalance;
-        this.hand = CardHand.GetTwoCardHand();
+        hand = new CardHand();
         this.isActive = true;
         this.currentBet = 0;
     }
@@ -38,7 +38,25 @@ public class Player {
     {
         return name;
     }
+    
+    public void setName(String inputName)
+    {
+        name = inputName;
+    }
 
+    public int getTurn()
+    {
+        return turn;
+    }
+    
+    public void setTurn(int turn)
+    {
+        this.turn = turn;
+    }
+    public CardHand GetCardHand()
+    {
+        return hand;
+    }
     
     public int getBalance() 
     {
@@ -82,6 +100,11 @@ public class Player {
         {
             throw new IllegalArgumentException("Insufficient balance to place bet");
         }
+    }
+    
+    public void increaseBalance(int amount)
+    {
+        balance += amount;
     }
 
     // Method to reset player's current bet for a new round
