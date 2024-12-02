@@ -15,16 +15,17 @@ import java.util.Collections;
  */
 public class CardDeck extends Card
 {
-    // The deck will just be a 52 piece ArrayList of card types
+    // The deck will just be a 52 element ArrayList of card types
     private ArrayList<Card> deck = new ArrayList<>();
     
+    // When initializing a deck, we will go ahead fil/shuffle the deck
     public CardDeck()
     {
         FillDeck();
         ShuffleDeck();
     }
     
-    
+    // Reset the ArrayList by emptying it, filling it, and shuffling it
     public void ResetDeck()
     {
         EmptyDeck();
@@ -35,8 +36,11 @@ public class CardDeck extends Card
     private void FillDeck()
     {
         char suit = ' ';
+        
+        // Keep track of the value
         for (int value = 2; value <= 14; value++)
         {
+            // Keep track of the suit
             for(int suitIndex = 1; suitIndex <= 4; suitIndex++)
             {
                 switch(suitIndex)
@@ -56,9 +60,6 @@ public class CardDeck extends Card
                     case 4:
                         suit = 's';
                         break;
-                        
-                    default:
-                        suit = 'l';
                 }
                 deck.add(new Card(value, suit));
             }
@@ -88,13 +89,5 @@ public class CardDeck extends Card
         {
             deck.remove(0);
         }
-    }
-    
-    // TEST FUNCTION
-    public void ReadCard(Card myCard)
-    {
-        char mySuit = myCard.GetSuit();
-        int myValue = myCard.GetValue();
-        System.out.println(mySuit + " " + myValue);
     }
 }
