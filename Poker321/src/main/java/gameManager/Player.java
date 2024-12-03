@@ -19,6 +19,8 @@ public class Player {
     private boolean isActive;
     private int currentBet;
     private int turn;
+    protected boolean hasFolded;
+    protected boolean hasChecked;
     
     
     // Constructor
@@ -99,6 +101,35 @@ public class Player {
         else
         {
             throw new IllegalArgumentException("Insufficient balance to place bet");
+        }
+    }
+
+      public boolean hasChecked()
+    {
+        return hasChecked;
+    }
+
+    public boolean hasFolded()
+    {
+        return hasFolded;
+    }
+    
+    public void fold() 
+    {
+        this.hasFolded = true; 
+        System.out.println(name + " has folded");
+    }
+
+    public void check() 
+    {
+        if (this.currentBet == 0)
+        {
+            this.hasChecked = true; 
+            System.out.println(name + " has checked");
+        }
+        else
+        {
+            System.out.println("Bet placed, cannot check");
         }
     }
     
