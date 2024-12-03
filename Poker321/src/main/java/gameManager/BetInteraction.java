@@ -16,7 +16,8 @@ package gameManager;
 // All functions/constructors containing references to the pot will require collaboration with Game
 
 public class BetInteraction {
-
+    private GameRules rules = new GameRules();
+    private int pot;
     int currentTurn;
     private Player player;
     GameRules game = new GameRules();
@@ -32,7 +33,7 @@ public class BetInteraction {
     public void displayActions() 
     {
         
-        int pot = game.GetPot();
+        pot = game.GetPot();
     }
 
     // Handle player's choice (check, call, raise, fold)
@@ -76,6 +77,8 @@ public class BetInteraction {
     // Player checks
     private void check() 
     {
+        //GameRules.NextTurn();
+
         NextTurn();
     }
 
@@ -97,6 +100,7 @@ public class BetInteraction {
         if (player.isActive()){
         int amount = player.getCurrentBet();
         player.decreaseBalance(amount);
+        rules.AddToPot(player.getCurrentBet());
         game.AddToPot(player.getCurrentBet());
         NextTurn();
         }
@@ -116,10 +120,9 @@ public class BetInteraction {
         {
             player.decreaseBalance(totalRaise);
             player.setCurrentBet(totalRaise);
-
+            //GameRules.AddToPot(player.getCurrentBet());
             game.AddToPot(player.getCurrentBet());
             NextTurn();
-
 
         }
         else
