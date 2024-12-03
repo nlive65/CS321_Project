@@ -1,11 +1,8 @@
 package gameManager;
 
-<<<<<<< HEAD
+
 import gameManager.GameRules;
 
-
-=======
->>>>>>> 755787a36d888f48d2093eb5abc0924faad0db76
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -20,22 +17,16 @@ import gameManager.GameRules;
 // All functions/constructors containing references to the pot will require collaboration with Game
 
 public class BetInteraction {
-<<<<<<< HEAD
-    
-    private final Player player;
     private GameRules rules = new GameRules();
-=======
-
+    private int pot;
     int currentTurn;
     private Player player;
     GameRules game = new GameRules();
->>>>>>> 755787a36d888f48d2093eb5abc0924faad0db76
     
      // Constructor
     public BetInteraction(Player player, int pot) 
     { //This will need collaboration from the GameLoop superclass
         this.player = player;
-<<<<<<< HEAD
         //GameRules.GetPot() = pot;
     }
 
@@ -43,9 +34,7 @@ public class BetInteraction {
     public void displayActions() 
     {
         
-=======
         pot = game.GetPot();
->>>>>>> 755787a36d888f48d2093eb5abc0924faad0db76
     }
 
     // Handle player's choice (check, call, raise, fold)
@@ -89,11 +78,9 @@ public class BetInteraction {
     // Player checks
     private void check() 
     {
-<<<<<<< HEAD
         //GameRules.NextTurn();
-=======
+
         NextTurn();
->>>>>>> 755787a36d888f48d2093eb5abc0924faad0db76
     }
 
     public void NextTurn()
@@ -114,12 +101,9 @@ public class BetInteraction {
         if (player.isActive()){
         int amount = player.getCurrentBet();
         player.decreaseBalance(amount);
-<<<<<<< HEAD
         rules.AddToPot(player.getCurrentBet());
-=======
         game.AddToPot(player.getCurrentBet());
         NextTurn();
->>>>>>> 755787a36d888f48d2093eb5abc0924faad0db76
         }
         else{
             check();
@@ -137,12 +121,9 @@ public class BetInteraction {
         {
             player.decreaseBalance(totalRaise);
             player.setCurrentBet(totalRaise);
-<<<<<<< HEAD
             //GameRules.AddToPot(player.getCurrentBet());
-=======
             game.AddToPot(player.getCurrentBet());
             NextTurn();
->>>>>>> 755787a36d888f48d2093eb5abc0924faad0db76
 
         }
         else
