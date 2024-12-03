@@ -18,42 +18,55 @@ public abstract class CPU
     protected int currentBet;
 
     // constructor
-    public CPU()
+    public CPU(String name, int chips) 
     {
-
+        super(name, chips);
+        this.currentBet = 0;
     }
-
+ 
     //method for making a move in the game to be implemented by subclasses    
-    public abstract void MakeMove();
+    public abstract void makeMove();
 
     //method to place a bet
-    public void PlaceBet(int amount) 
+    public void placeBet(int amount) 
     {     
-        
-    }
+        if (amount <= balance && amount > 0)
+        {
+            super.currentBet = amount;   // Set the bet amount
+        }
+        else 
+        {
+            System.out.println("Invalid bet amount");
+        }
+    } 
 
     // method to fold
-    public void Fold() 
+    @Override
+    public void fold() 
     {
-        
+        super.fold();
     }
 
     // method to check
-    public void Check() 
+    @Override
+    public void check() 
     {
-        
+        super.check();
     }
 
     // method to get the current bet
-    public int GetCurrentBet() 
+    public int getCurrentBet() 
     {
         return currentBet;
     }
 
     // method to reset the current bet when the rounds are finished
-    public void ResetBet() 
+    @Override
+    public void resetBet() 
     {
-        
+        this.currentBet = 0;
+        this.hasFolded = false;
+        this.hasChecked = false;
     }
 }
 
