@@ -85,7 +85,8 @@ public class CardDeck extends Card
     // This function will empty the deck in order to start a new game.
     private void EmptyDeck()
     {
-        for(int index = 0; index < deck.size(); index++)
+        int size = deck.size();
+        for(int index = 0; index < size; index++)
         {
             deck.remove(0);
         }
