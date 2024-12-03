@@ -38,10 +38,10 @@ public class Poker321 {
         int chipAmount = gui.getStartingMoney();
         int rounds = gui.getMaxTurns();
         // Initiate the players
-        Player user = new Player(playerName, chipAmount);
-        Player jeff = new Player("Jeff", chipAmount);
-        Player eliza = new Player("Eliza", chipAmount);
-        Player erin = new Player("Erin", chipAmount);
+        Player user = new Player(playerName, chipAmount, 0);
+        Player jeff = new Player("Jeff", chipAmount, 1);
+        Player eliza = new Player("Eliza", chipAmount, 2);
+        Player erin = new Player("Erin", chipAmount, 3);
         gui.setMoney(0, chipAmount);
         gui.setMoney(1, chipAmount);        
         gui.setMoney(2,chipAmount);
