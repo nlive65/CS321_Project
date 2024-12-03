@@ -68,6 +68,9 @@ public class GameLoopScene extends Scene {
         jLabel25.setVisible(false);
         jLabel26.setVisible(false);
     }
+    public void setPlayerAction(){
+        this.takenAction = PLAYER_ACTIONS.IDLE;
+    }
     public PLAYER_ACTIONS getTakenAction(){
         return this.takenAction;
     }
@@ -261,11 +264,13 @@ public class GameLoopScene extends Scene {
                 jLabel24.setVisible(true);
                 break;
             case 5://Turn
+                hand = newCard.GetFullHand();
                 card1 = hand.get(0);
                 jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
                 jLabel25.setVisible(true);
                 break;
             case 6://River
+                hand = newCard.GetFullHand();
                 card1 = hand.get(0);
                 jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
                 jLabel26.setVisible(true);

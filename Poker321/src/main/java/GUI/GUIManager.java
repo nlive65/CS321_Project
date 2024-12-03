@@ -153,6 +153,7 @@ public class GUIManager implements GraphicsHandler {
     }
     public PLAYER_ACTIONS awaitPlayerAction(){
         this.raiseAmount = 0;
+        this.gameDisplay.setPlayerAction();
             while(this.gameDisplay.getTakenAction() == PLAYER_ACTIONS.IDLE){ //Wait for player to make up their minds fr
                 try{
                     java.lang.Thread.currentThread().sleep(10);
@@ -169,6 +170,14 @@ public class GUIManager implements GraphicsHandler {
     public void setWinner(int playerID){
         if(this.activeGUI == GUI_STATE.GAMELOOP){
             this.gameDisplay.setWinner(playerID);
+            while(!this.gameDisplay.getNextStart()){ //Wait for player to comprehend the consequences 
+                try{
+                    java.lang.Thread.currentThread().sleep(10);
+                }
+                catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
         }
     }
     public GUI_STATE getState(){
