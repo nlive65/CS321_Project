@@ -24,10 +24,10 @@ public class Player {
     
     
     // Constructor
-    public Player(String name, int initialBalance) 
+    public Player(String name, int initialBalance, int playerTurn) 
     {
         this.name = name;
-        this.turn = 0;
+        this.turn = playerTurn;
         this.balance = initialBalance;
         hand = new CardHand();
         this.isActive = true;
