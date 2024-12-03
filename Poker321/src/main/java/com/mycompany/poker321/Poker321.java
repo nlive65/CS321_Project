@@ -35,7 +35,7 @@ public class Poker321 {
             }
         }
         String playerName = gui.getUserName();
-        int chipAmount = gui.getStartingMoney();
+        int chipAmount = gui.getStartingMoney()*10;
         int rounds = gui.getMaxTurns();
         // Initiate the players
         Player user = new Player(playerName, chipAmount, 0);
@@ -114,11 +114,11 @@ public class Poker321 {
                 System.out.println(flop.GetFullHand().get(index));
             }
             gui.reveal(4, flop);
-            for(int betTurn = 1; betTurn <= 3; betTurn++)
+            for(int betTurn = 1; betTurn < 3; betTurn++)
             {
                 pulledCard = deck.PullTopCard();
                 // This card will be siplayed in the middle of the table
-                gui.setTurn(betTurn--);
+                //gui.setTurn(betTurn--);
                 user.GetCardHand().AddToFullHand(pulledCard);
                 jeff.GetCardHand().AddToFullHand(pulledCard);
                 eliza.GetCardHand().AddToFullHand(pulledCard);
@@ -139,12 +139,15 @@ public class Poker321 {
                     rules.AddToPot(userBet);
                     
                     // jeff Bets
+                    gui.setTurn(1);
                     rules.AddToPot(jeffBet);
                     
                     // eliza bets
+                    gui.setTurn(2);
                     rules.AddToPot(elizaBet);
                     
                     // erin bets
+                    gui.setTurn(3);
                     rules.AddToPot(erinBet);
                 }
                 else if(dealer.getName() == jeff.getName())
@@ -154,12 +157,15 @@ public class Poker321 {
                     rules.AddToPot(jeffBet);
                     
                     // eliza bets
+                    gui.setTurn(2);
                     rules.AddToPot(elizaBet);
                     
                     // erin bets
+                    gui.setTurn(3);
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    gui.setTurn(0);
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     //check for raise or bet amount
                     rules.AddToPot(userBet);
@@ -171,15 +177,18 @@ public class Poker321 {
                     rules.AddToPot(elizaBet);
                     
                     // erin bets
+                    gui.setTurn(3);
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    gui.setTurn(0);
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     //check for raise or bet amount
                     rules.AddToPot(userBet);
                     
                     
                     // jeff bets
+                    gui.setTurn(1);
                     rules.AddToPot(jeffBet);
                 }
                 else
@@ -189,14 +198,17 @@ public class Poker321 {
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    gui.setTurn(0);
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     //check for raise or bet amount
                     rules.AddToPot(userBet);
                     
                     // jeff bets
+                    gui.setTurn(1);
                     rules.AddToPot(jeffBet);
                     
                     // eliza bets
+                    gui.setTurn(2);
                     rules.AddToPot(elizaBet);
                 }
             }

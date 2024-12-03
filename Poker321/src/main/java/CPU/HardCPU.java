@@ -11,13 +11,13 @@ package CPU;
  * this class represents a Hard CPU player that makes strategic betting and folding decisions.
  */
 
-public class HardCPU extends CPU 
+public class HardCPU extends CPU
 {
     
     // constructor
-    public HardCPU(String name, int chips) 
+    public HardCPU(String name, int chips,int turnNumber) 
     {
-        
+        super(name,chips,turnNumber);
     }
 
     // method to evaluate hand strength 

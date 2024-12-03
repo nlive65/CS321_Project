@@ -52,6 +52,9 @@ public class GUIManager implements GraphicsHandler {
     public String getUserName(){
         return username;
     }
+    public void fold(int playerId){
+        this.gameDisplay.fold(playerId);
+    }
     
     /**
      * Sets the active GUI state.

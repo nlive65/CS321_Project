@@ -12,15 +12,15 @@ import gameManager.Player;
  * this class represents a generic CPU player
  */
 
-public abstract class CPU 
+public abstract class CPU extends Player
 {
     // Current bet amount
     protected int currentBet;
 
     // constructor
-    public CPU()
+    public CPU(String name, int initialBalance, int playerTurn)
     {
-
+        super(name,initialBalance,playerTurn);
     }
 
     //method for making a move in the game to be implemented by subclasses    
