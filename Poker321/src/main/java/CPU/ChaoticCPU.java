@@ -22,9 +22,9 @@ public class ChaoticCPU extends CPU
     private Random random;
 
     // constructor
-    public ChaoticCPU(String name, int chips) 
+    public ChaoticCPU(String name, int chips,int turnNumber) 
     {
-         
+         super(name,chips,turnNumber);
     }
 
     // method to make move randomly

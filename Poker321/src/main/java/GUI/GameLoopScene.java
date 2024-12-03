@@ -189,7 +189,26 @@ public class GameLoopScene extends Scene {
         
     }
     
-
+    public void fold(int playerId){
+        switch(playerId){
+            case 0:
+                this.jLabel3.setVisible(false);
+                this.jLabel20.setVisible(false);
+                break;
+            case 1://Jeff
+                jLabel14.setVisible(false);
+                jLabel15.setVisible(false);
+                break;
+            case 2://Eliza
+                jLabel18.setVisible(false);
+                jLabel19.setVisible(false);
+                break;
+            case 3: //Erin
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                break;
+        }
+    }
     
     public void reveal(int playerId, CardHand newCard){
         ArrayList<Card> hand = newCard.GetTwoCardHand();
@@ -197,8 +216,6 @@ public class GameLoopScene extends Scene {
             case 0://Player
                 Card card1 = hand.get(0);
                 Card card2 = hand.get(1);
-                System.out.println(Character.toUpperCase(card1.GetSuit()));
-                System.out.println(card1.GetValue());
                 jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
                 jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card2.GetSuit()) + card2.GetValue()+ ".png"))); // NOI18N
                 jLabel3.setVisible(true);
