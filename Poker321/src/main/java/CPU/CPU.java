@@ -12,33 +12,20 @@ import gameManager.Player;
  * this class represents a generic CPU player
  */
 
-public abstract class CPU 
+public abstract class CPU extends Player
 {
-    // Current bet amount
+    // current bet amount
     protected int currentBet;
 
     // constructor
-    public CPU(String name, int chips) 
+    public CPU(String name, int chips, int playerTurn) 
     {
-        super(name, chips);
+        super(name, chips, playerTurn);
         this.currentBet = 0;
     }
  
     //method for making a move in the game to be implemented by subclasses    
     public abstract void makeMove();
-
-    //method to place a bet
-    public void placeBet(int amount) 
-    {     
-        if (amount <= balance && amount > 0)
-        {
-            super.currentBet = amount;   // Set the bet amount
-        }
-        else 
-        {
-            System.out.println("Invalid bet amount");
-        }
-    } 
 
     // method to fold
     @Override
@@ -55,6 +42,7 @@ public abstract class CPU
     }
 
     // method to get the current bet
+    @Override
     public int getCurrentBet() 
     {
         return currentBet;

@@ -11,25 +11,43 @@ package CPU;
  * 
  * this class represents a CPU player that plays conservatively by betting low and folding if the user is aggressive.
  */
+
+
 public class EasyCPU extends CPU 
 {
-
+    
     // constructor
-    public EasyCPU(String name, int chips) 
+    public EasyCPU(String name, int chips, int playerTurn) 
     {
-
+        super(name, chips, playerTurn);  // Calls the parent constructor
     }
 
     // method to make move based on user
-    public void MakeMove() 
+    @Override
+    public void makeMove() 
     {
-       
+        int playerBet = getCurrentBet();  // current bet from the player
+        int cpuBalance = getBalance();    // CPU's balance
+     
+        // conservative betting strategy
+        if (playerBet > cpuBalance * 0.5) {
+            // if the player's bet is too high, fold
+            System.out.println(getName() + " decides to fold because the bet is too high.");
+            fold();  
+        } else {
+            // otherwise, bet a small amount
+            int betAmount = Math.min(10, getBalance());  // bet 10 chips, but not more than the remaining balance
+            System.out.println(getName() + " decides to bet " + betAmount + " chips.");
+            decreaseBalance(betAmount);  // Calls the placeBet method from the CPU class
+        }
     }
 
     //fold method to override and add specific behavior for EasyCPU.
-    public void Fold() 
+    @Override
+    public void fold() 
     {
-        
+        super.fold();
+        System.out.println(getName() + " folded.");
     }
 
 }
