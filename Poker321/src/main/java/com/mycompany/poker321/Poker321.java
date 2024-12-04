@@ -62,7 +62,7 @@ public class Poker321 {
         playerObj.put("balance",player.getBalance());
         playerObj.put("isActive", player.isActive());
         
-        
+        /*
         JSONArray handObj = new JSONArray();
         for(int i =0; i<2;i++){
             JSONObject cardObj = new JSONObject();
@@ -71,6 +71,7 @@ public class Poker321 {
             handObj.put(cardObj);
         }
         playerObj.put("cards", handObj);
+        */
         return playerObj;
     }
     
