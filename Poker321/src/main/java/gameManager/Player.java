@@ -35,6 +35,11 @@ public class Player {
         this.currentBet = 0;
     }
     
+    public void ResetPlayerHand()
+    {
+        hand.ClearTwoCardHand();
+        hand.ClearFullHand();
+    }
     
     // Getters and Setters
     public String getName() 

@@ -609,6 +609,11 @@ public class Poker321 {
             deck.ResetDeck();
             gui.update();
             user.resetFold();
+            
+            user.ResetPlayerHand();
+            jeff.ResetPlayerHand();
+            eliza.ResetPlayerHand();
+            erin.ResetPlayerHand();
         }
         gui.setActiveGUI(GUI_STATE.HOME_MENU);
         gui.update();
