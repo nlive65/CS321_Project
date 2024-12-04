@@ -169,6 +169,9 @@ public class GameLoopScene extends Scene {
             case 3:
                 this.jLabel9.setText("Erin Wins");
                 break;
+            case 4:
+                this.jLabel19.setText("TIE");
+                break;
         }
     }
     
