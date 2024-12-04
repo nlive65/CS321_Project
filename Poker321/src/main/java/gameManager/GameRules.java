@@ -83,8 +83,9 @@ public class GameRules extends CardLogic
        }
     
     // Private helper function to help in the case that two players have the same value hand
-    private void drawWithTwo(Player p1, Player p2)
+    private int drawWithTwo(Player p1, int p1ID, Player p2, int p2ID)
     {
+        int winnerID = 0;
         // We get the highest card from the individual user
         int p1Value = p1.GetCardHand().GetTwoCardHandHighCard();
         int p2Value = p2.GetCardHand().GetTwoCardHandHighCard();
@@ -93,26 +94,26 @@ public class GameRules extends CardLogic
         if(p1Value > p2Value)
         {
             p1.increaseBalance(pot);
-            System.out.println(p1.getName() + " wins!");
+            winnerID = p1ID;
         }
         else if(p2Value > p1Value)
         {
             p2.increaseBalance(pot);
-            System.out.println(p2.getName() + " wins!");
+            winnerID = p2ID;
         }
         else
         {
             p1.increaseBalance(pot/2);
             p2.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p2.getName() + " tied!");
-            
+            winnerID = 4;
         }
+        return winnerID;
     }
     
     // Private helper function to aid in the case that three players have the same hand value
-    private void drawWithThree(Player p1, Player p2, Player p3)
+    private int drawWithThree(Player p1, int p1ID, Player p2, int p2ID, Player p3, int p3ID)
     {
+        int winnerID = 0;
         // Get the high card of the hand
         int p1Value = p1.GetCardHand().GetTwoCardHandHighCard();
         int p2Value = p2.GetCardHand().GetTwoCardHandHighCard();
@@ -128,52 +129,50 @@ public class GameRules extends CardLogic
         if(p1Highest && !p2Highest && !p3Highest)
         {
             p1.increaseBalance(pot);
-            System.out.println(p1.getName() + " wins!");
+            winnerID = p1ID;
         }
         else if(p2Highest && !p1Highest && !p3Highest)
         {
             p2.increaseBalance(pot);
-            System.out.println(p2.getName() + " wins!");
+            winnerID = p2ID;
         }
         else if(p3Highest && !p1Highest && !p2Highest)
         {
             p3.increaseBalance(pot);
-            System.out.println(p3.getName() + " wins!");
+            winnerID = p3ID;
         }
         else if(p1Highest && p2Highest && !p3Highest)
         {
             p1.increaseBalance(pot/2);
             p2.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p2.getName() + " tied");
+            winnerID = 4;
         }
         else if(p2Highest && p3Highest && !p1Highest)
         {
             p2.increaseBalance(pot/2);
             p3.increaseBalance(pot/2);
-            
-            System.out.println(p2.getName() + " and " + p3.getName() + " tied");
+            winnerID = 4;
         }
         else if(p1Highest && p3Highest && !p2Highest)
         {
             p1.increaseBalance(pot/2);
             p3.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p3.getName() + " tied");
+            winnerID = 4;
         }
         else
         {
             p1.increaseBalance(pot/3);
             p2.increaseBalance(pot/3);
             p3.increaseBalance(pot/3);
-            
-            System.out.println(p1.getName() + ", " + p2.getName() + ", and " + p3.getName() + " tied!");
+            winnerID = 4;
         }
+        return winnerID;
     }
     
     // Private helper function for that case that all four players have the same hand value
-    private void drawWithFour(Player p1, Player p2, Player p3, Player p4)
+    private int drawWithFour(Player p1, int p1ID, Player p2, int p2ID, Player p3, int p3ID, Player p4, int p4ID)
     {
+        int winnerID = 0;
         // Get the high card of each hand
         int p1Value = p1.GetCardHand().GetTwoCardHandHighCard();
         int p2Value = p2.GetCardHand().GetTwoCardHandHighCard();
@@ -191,92 +190,86 @@ public class GameRules extends CardLogic
         if(p1Highest && !p2Highest && !p3Highest && !p4Highest)
         {
             p1.increaseBalance(pot);
+            winnerID = p1ID;
         }
         else if(p2Highest && !p1Highest && !p3Highest && !p4Highest)
         {
             p2.increaseBalance(pot);
+            winnerID = p2ID;
         }
         else if(p3Highest && !p1Highest && !p2Highest && !p4Highest)
         {
             p3.increaseBalance(pot);
+            winnerID = p3ID;
         }
         else if(p4Highest && !p1Highest && !p2Highest && !p3Highest)
         {
             p4.increaseBalance(pot);
+            winnerID = p4ID;
         }
         else if(p1Highest && p2Highest && !p3Highest && !p4Highest)
         {
             p1.increaseBalance(pot/2);
             p2.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p2.getName() + " tied");
+            winnerID = 4;
         }
         else if(p2Highest && p3Highest && !p1Highest && !p4Highest)
         {
             p2.increaseBalance(pot/2);
             p3.increaseBalance(pot/2);
-            
-            System.out.println(p3.getName() + " and " + p4.getName() + " tied");
+            winnerID = 4;
         }
         else if(p3Highest && p4Highest && !p1Highest && !p2Highest)
         {
             p3.increaseBalance(pot/2);
             p4.increaseBalance(pot/2);
-            
-            System.out.println(p3.getName() + " and " + p4.getName() + " tied");
+            winnerID = 4;
         }
         else if(p1Highest && p3Highest && !p2Highest && !p4Highest)
         {
             p1.increaseBalance(pot/2);
             p3.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p3.getName() + " tied");
+            winnerID = 4;
         }
         else if(p1Highest && p4Highest && !p2Highest && !p3Highest)
         {
             p1.increaseBalance(pot/2);
             p4.increaseBalance(pot/2);
-            
-            System.out.println(p1.getName() + " and " + p4.getName() + " tied");
+            winnerID = 4;
         }
         else if(p2Highest && p4Highest && !p1Highest && !p3Highest)
         {
             p2.increaseBalance(pot/2);
             p4.increaseBalance(pot/2);
-            
-            System.out.println(p2.getName() + " and " + p4.getName() + " tied");
+            winnerID = 4;
         }
         else if(p1Highest && p2Highest && p3Highest && !p4Highest)
         {
             p1.increaseBalance(pot/3);
             p2.increaseBalance(pot/3);
             p3.increaseBalance(pot/3);
-            
-            System.out.println(p1.getName() + ", " + p2.getName() + ", and " + p3.getName() + " tied!");
+            winnerID = 4;
         }
         else if(p1Highest && p3Highest && p4Highest && !p2Highest)
         {
             p1.increaseBalance(pot/3);
             p3.increaseBalance(pot/3);
             p4.increaseBalance(pot/3);
-            
-            System.out.println(p1.getName() + ", " + p3.getName() + ", and " + p4.getName() + " tied!");
+            winnerID = 4;
         }
         else if(p2Highest && p3Highest && p4Highest && !p1Highest)
         {
             p2.increaseBalance(pot/3);
             p3.increaseBalance(pot/3);
             p4.increaseBalance(pot/3);
-            
-            System.out.println(p2.getName() + ", " + p3.getName() + ", and " + p4.getName() + " tied!");
+            winnerID = 4;
         }
         else if(p1Highest && p2Highest && p4Highest && !p3Highest)
         {
             p1.increaseBalance(pot/3);
             p2.increaseBalance(pot/3);
             p4.increaseBalance(pot/3);
-            
-            System.out.println(p1.getName() + ", " + p2.getName() + ", and " + p4.getName() + " tied!");
+            winnerID = 4;
         }
         else
         {
@@ -284,16 +277,16 @@ public class GameRules extends CardLogic
             p2.increaseBalance(pot/4);
             p3.increaseBalance(pot/4);
             p4.increaseBalance(pot/4);
-            
-            System.out.println("Everyone Tied!");
+            winnerID = 4;
         }
-            
+        return winnerID; 
     }
     
     // This function will be called in the main to call a winner. It will check the full hand value to see what
     // hand the player has. Based upon that, the function will handle giving out the pot.
-    public void DeclareWinner(Player p1, Player p2, Player p3, Player p4)
+    public int DeclareWinner(Player p1, Player p2, Player p3, Player p4)
     {
+        int winnerID = 0;
         // Get the highest hand value of each card hand
         int p1HandValue = CheckHand(p1.GetCardHand());
         int p2HandValue = CheckHand(p2.GetCardHand());
@@ -350,18 +343,22 @@ public class GameRules extends CardLogic
         {
             if(p1HandHighest)
             {
+                winnerID = 0;
                 p1.increaseBalance(pot);
             }
             else if(p2HandHighest)
             {
+                winnerID = 1;
                 p2.increaseBalance(pot);
             }
             else if(p3HandHighest)
             {
+                winnerID = 2;
                 p3.increaseBalance(pot);
             }
             else
             {
+                winnerID = 3;
                 p4.increaseBalance(pot);
             }
         }
@@ -372,27 +369,27 @@ public class GameRules extends CardLogic
         {
             if(p1HandHighest && p2HandHighest)
             {
-                drawWithTwo(p1, p2);
+                winnerID = drawWithTwo(p1, 0, p2, 1);
             }
             else if(p1HandHighest && p3HandHighest)
             {
-                drawWithTwo(p1, p3);
+                winnerID = drawWithTwo(p1, 0, p3, 2);
             }
             else if(p1HandHighest && p4HandHighest)
             {
-                drawWithTwo(p1, p4);
+                winnerID = drawWithTwo(p1, 0, p4, 3);
             }
             else if(p2HandHighest && p3HandHighest)
             {
-                drawWithTwo(p2, p3);
+                winnerID = drawWithTwo(p2, 1, p3, 2);
             }
             else if(p2HandHighest && p4HandHighest)
             {
-                drawWithTwo(p2, p4);
+                winnerID = drawWithTwo(p2, 1, p4, 3);
             }
             else
             {
-                drawWithTwo(p3, p4);
+                winnerID = drawWithTwo(p3, 2, p4, 3);
             }
         }
         // If there are three with the highest value, figure out which three and pass them into the
@@ -401,26 +398,27 @@ public class GameRules extends CardLogic
         {
             if(p1HandHighest && p2HandHighest && p3HandHighest)
             {
-                drawWithThree(p1, p2, p3);
+                winnerID = drawWithThree(p1, 0, p2, 1, p3, 2);
             }
             else if(p2HandHighest && p3HandHighest && p4HandHighest)
             {
-                drawWithThree(p2, p3, p4);
+                winnerID = drawWithThree(p2, 1, p3, 2, p4, 3);
             }
             else if(p1HandHighest && p3HandHighest && p4HandHighest)
             {
-                drawWithThree(p1, p3, p4);
+                winnerID = drawWithThree(p1, 0, p3, 2, p4, 3);
             }
             else
             {
-                drawWithThree(p1, p2, p4);
+                winnerID = drawWithThree(p1, 0, p2, 1, p4, 3);
             }
         }
         // Otherwise, all four tied and we need to pass every player into the finction to handele four
         // tied players
         else
         {
-            drawWithFour(p1, p2, p3, p4);
+            winnerID = drawWithFour(p1, 0, p2, 1, p3, 2, p4, 3);
         }
+        return winnerID;
     }
 }

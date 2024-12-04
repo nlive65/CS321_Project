@@ -25,4 +25,11 @@ public abstract class Scene extends javax.swing.JFrame {
     public abstract GUI_STATE getTransition();
     
     public abstract void ResetTransition();
+    public String getUserName(){return "";}
+    public int getBetAmount(){return 0;}
+    public int getTurnCount(){return 0;}
+    
+    public void setUsername(String name){}
+    public void setTurnCount(int turn){}
+    public void setTurn(int turn){}
 }

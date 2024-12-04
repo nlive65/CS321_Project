@@ -122,7 +122,11 @@ public class Player {
         this.hasFolded = true; 
         System.out.println(name + " has folded");
     }
+
     /** Allows the player to check */
+
+
+
     public void check() 
     {
         if (this.currentBet == 0)
@@ -135,7 +139,9 @@ public class Player {
             System.out.println("Bet placed, cannot check");
         }
     }
+
     /** Increase player balance by input amount */
+
     public void increaseBalance(int amount)
     {
         balance += amount;
