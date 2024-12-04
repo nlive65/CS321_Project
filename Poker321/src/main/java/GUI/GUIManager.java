@@ -176,12 +176,11 @@ public class GUIManager implements GraphicsHandler {
      * @return true if the player chooses to resume the game, false otherwise.
      */
     public boolean getResumeGame(){
-        if(this.activeGUI == GUI_STATE.HOME_MENU){
-            return homeHandler.getResumeGame();
-        }
-        return false;
+        return homeHandler.getResumeGame();
     }
-    
+    public void setUsername(String newName){
+        this.username = newName;
+    }
     private int turn =0;
     public void update(){
         try {

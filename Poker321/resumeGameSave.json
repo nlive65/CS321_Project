@@ -5,29 +5,29 @@
         "cards": [
             {
                 "suit": 115,
-                "value": 8
+                "value": 7
             },
             {
-                "suit": 115,
-                "value": 9
+                "suit": 100,
+                "value": 8
             }
         ],
-        "balance": 20,
+        "balance": 30,
         "name": "Eliza",
         "isActive": true
     },
     "jeff": {
         "cards": [
             {
-                "suit": 99,
-                "value": 7
+                "suit": 104,
+                "value": 5
             },
             {
-                "suit": 104,
-                "value": 11
+                "suit": 115,
+                "value": 4
             }
         ],
-        "balance": 20,
+        "balance": 30,
         "name": "Jeff",
         "isActive": true
     },
@@ -35,31 +35,31 @@
         "cards": [
             {
                 "suit": 100,
-                "value": 9
+                "value": 6
             },
             {
                 "suit": 104,
-                "value": 13
+                "value": 4
             }
         ],
-        "balance": 20,
-        "name": "User name",
+        "balance": 15,
+        "name": "Nick",
         "isActive": true
     },
     "erin": {
         "cards": [
             {
-                "suit": 100,
-                "value": 14
+                "suit": 99,
+                "value": 2
             },
             {
                 "suit": 104,
                 "value": 14
             }
         ],
-        "balance": 20,
+        "balance": 45,
         "name": "Erin",
         "isActive": true
     },
-    "rounds": 3
+    "rounds": 4
 }

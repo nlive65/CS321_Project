@@ -19,6 +19,10 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  *
  * @author Everyone
@@ -90,8 +94,36 @@ public class Poker321 {
         while(gui.getState() != GUI_STATE.GAMELOOP){
             gui.update();
             if(gui.getResumeGame()){
+                
                 //Game manager load the game
                 didResume = true;
+                try{
+                  ObjectMapper mapper = new ObjectMapper();
+                  File jsonFile = new File("resumeGameSave.json");
+                  JsonNode rootNode = mapper.readTree(jsonFile);
+                  
+                  rounds = rootNode.path("rounds").asInt();
+                  initTurn = rootNode.path("round").asInt();
+                  
+                  JsonNode userNode = rootNode.path("user");
+                  playerName = userNode.path("name").asText();
+                  int playerMoney = userNode.path("balance").asInt();
+                  int jeffMoney = rootNode.path("jeff").path("balance").asInt();
+                  int elizaMoney = rootNode.path("eliza").path("balance").asInt();
+                  int erinMoney = rootNode.path("erin").path("balance").asInt();
+                  user = new Player(playerName,playerMoney,0);
+                  jeff = new Player("Jeff",jeffMoney,1);
+                  eliza = new Player("Eliza",elizaMoney,2);
+                  erin = new Player("Erin",erinMoney,3);
+                  gui.setUsername(playerName);
+                  
+                  gui.setMoney(0,playerMoney);
+                  gui.setMoney(1,jeffMoney);
+                  gui.setMoney(2,elizaMoney);
+                  gui.setMoney(3,erinMoney);
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
             }
         }
         if(!didResume){
@@ -109,9 +141,6 @@ public class Poker321 {
             gui.setMoney(3,chipAmount);
             gui.setMoney(4,0);
         }
-        
-        
-        
 
         // Dealer variable will choose who the dealer is
         Player dealer = null;
@@ -121,7 +150,7 @@ public class Poker321 {
         for(int turn = initTurn; turn <= rounds && user.getBalance() > 0; turn++)
         {
             gui.unDeal();
-            
+            gui.setTurnCount(turn);
             gui.update();
             if(gui.getSaveGame()){
                 saveGameToJson(user,jeff,eliza,erin,rules,rounds,turn,"resumeGameSave.json");
