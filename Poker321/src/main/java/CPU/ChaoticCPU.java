@@ -69,12 +69,4 @@ public class ChaoticCPU extends CPU
             }
         }
     }
-
-  
-    @Override
-    public void fold() 
-    {
-        super.fold();  
-        System.out.println(getName() + " folded.");
-    }
 }
