@@ -1,5 +1,7 @@
 package gameManager;
 
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -8,13 +10,15 @@ package gameManager;
 /**
  *
  * @author Luke
+ * @param Takes player id and pot amount
  */
 
 // This is a rough sketch of what the Betting Interaction will look like, much tweaking to be done.
 // All functions/constructors containing references to the pot will require collaboration with Game
 
 public class BetInteraction {
-
+    private GameRules rules = new GameRules();
+    private int pot;
     int currentTurn;
     private Player player;
     GameRules game = new GameRules();
@@ -23,6 +27,13 @@ public class BetInteraction {
     public BetInteraction(Player player, int pot) 
     { //This will need collaboration from the GameLoop superclass
         this.player = player;
+        //GameRules.GetPot() = pot;
+    }
+
+    // Display available actions to the player (fold, check, call, raise)
+    public void displayActions() 
+    {
+        
         pot = game.GetPot();
     }
 
@@ -67,6 +78,8 @@ public class BetInteraction {
     // Player checks
     private void check() 
     {
+        //GameRules.NextTurn();
+
         NextTurn();
     }
 
@@ -88,6 +101,7 @@ public class BetInteraction {
         if (player.isActive()){
         int amount = player.getCurrentBet();
         player.decreaseBalance(amount);
+        rules.AddToPot(player.getCurrentBet());
         game.AddToPot(player.getCurrentBet());
         NextTurn();
         }
@@ -107,13 +121,10 @@ public class BetInteraction {
         {
             player.decreaseBalance(totalRaise);
             player.setCurrentBet(totalRaise);
+            //GameRules.AddToPot(player.getCurrentBet());
             game.AddToPot(player.getCurrentBet());
             NextTurn();
 
-        }
-        else
-        {
-            // Add some kind of error here, maybe a gui thing
         }
       }
         else{
