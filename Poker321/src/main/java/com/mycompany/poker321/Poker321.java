@@ -14,12 +14,65 @@ import GUI.GUIManager;
 import GUI.GUI_STATE;
 import gameManager.PLAYER_ACTIONS;
 
+
+import org.json.JSONObject;
+import org.json.JSONArray;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  *
  * @author Everyone
  */
 public class Poker321 {
 
+    private static void saveGameToJson(Player user, Player jeff, Player eliza, Player erin, GameRules rules, int rounds, int round, String fileName){
+        JSONObject gameState = new JSONObject();
+        
+        gameState.put("rounds",rounds);
+        gameState.put("pot",rules.GetPot());
+        gameState.put("round",round);
+        
+        JSONObject userObj = createPlayerObject(user);
+        JSONObject jeffObj = createPlayerObject(jeff);
+        JSONObject elizaObj = createPlayerObject(eliza);
+        JSONObject erinObj = createPlayerObject(erin);
+        
+        gameState.put("user",userObj);
+        gameState.put("jeff",jeffObj);
+        gameState.put("eliza",elizaObj);
+        gameState.put("erin",erinObj);
+        
+        
+       try(FileWriter file = new FileWriter(fileName)){
+           file.write(gameState.toString(4));
+       }catch(IOException e){
+           e.printStackTrace();
+       }
+    }
+    
+    private static JSONObject createPlayerObject(Player player){
+        JSONObject playerObj = new JSONObject();
+        
+        playerObj.put("name", player.getName());
+        playerObj.put("balance",player.getBalance());
+        playerObj.put("isActive", player.isActive());
+        
+        
+        JSONArray handObj = new JSONArray();
+        for(int i =0; i<2;i++){
+            JSONObject cardObj = new JSONObject();
+            cardObj.put("suit",player.GetCardHand().GetTwoCardHand().get(i).GetSuit());
+            cardObj.put("value",player.GetCardHand().GetTwoCardHand().get(i).GetValue());
+            handObj.put(cardObj);
+        }
+        playerObj.put("cards", handObj);
+        return playerObj;
+    }
+    
     public static void main(String[] args) 
     {
         GUIManager gui = new GUIManager();
@@ -28,41 +81,81 @@ public class Poker321 {
         CardDeck deck = new CardDeck();
         while(true){
             
-        
+        boolean didResume = false;
+        Player user = new Player("",0,0);
+        Player jeff = new Player("",0,0);
+        Player eliza = new Player("",0,0);
+        Player erin = new Player("",0,0);
+        String playerName = "";
+        int chipAmount = 0;
+        int rounds = 0;
+        int initTurn = 1;
         // Placeholders for info from GUI
         while(gui.getState() != GUI_STATE.GAMELOOP){
             gui.update();
             if(gui.getResumeGame()){
+                
                 //Game manager load the game
+                didResume = true;
+                try{
+                  ObjectMapper mapper = new ObjectMapper();
+                  File jsonFile = new File("resumeGameSave.json");
+                  JsonNode rootNode = mapper.readTree(jsonFile);
+                  
+                  rounds = rootNode.path("rounds").asInt();
+                  initTurn = rootNode.path("round").asInt();
+                  
+                  JsonNode userNode = rootNode.path("user");
+                  playerName = userNode.path("name").asText();
+                  int playerMoney = userNode.path("balance").asInt();
+                  int jeffMoney = rootNode.path("jeff").path("balance").asInt();
+                  int elizaMoney = rootNode.path("eliza").path("balance").asInt();
+                  int erinMoney = rootNode.path("erin").path("balance").asInt();
+                  user = new Player(playerName,playerMoney,0);
+                  jeff = new Player("Jeff",jeffMoney,1);
+                  eliza = new Player("Eliza",elizaMoney,2);
+                  erin = new Player("Erin",erinMoney,3);
+                  gui.setUsername(playerName);
+                  
+                  gui.setMoney(0,playerMoney);
+                  gui.setMoney(1,jeffMoney);
+                  gui.setMoney(2,elizaMoney);
+                  gui.setMoney(3,erinMoney);
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
             }
         }
-        String playerName = gui.getUserName();
-        int chipAmount = gui.getStartingMoney()*10;
-        int rounds = gui.getMaxTurns();
-        // Initiate the players
-        Player user = new Player(playerName, chipAmount, 0);
-        Player jeff = new Player("Jeff", chipAmount, 1);
-        Player eliza = new Player("Eliza", chipAmount, 2);
-        Player erin = new Player("Erin", chipAmount, 3);
-        gui.setMoney(0, chipAmount);
-        gui.setMoney(1, chipAmount);        
-        gui.setMoney(2,chipAmount);
-        gui.setMoney(3,chipAmount);
-        gui.setMoney(4,0);
-        
-        
+        if(!didResume){
+            playerName = gui.getUserName();
+            chipAmount = gui.getStartingMoney()*10;
+            rounds = gui.getMaxTurns();
+            // Initiate the players
+            user = new Player(playerName, chipAmount, 0);
+            jeff = new Player("Jeff", chipAmount, 1);
+            eliza = new Player("Eliza", chipAmount, 2);
+            erin = new Player("Erin", chipAmount, 3);
+            gui.setMoney(0, chipAmount);
+            gui.setMoney(1, chipAmount);        
+            gui.setMoney(2,chipAmount);
+            gui.setMoney(3,chipAmount);
+            gui.setMoney(4,0);
+        }
 
         // Dealer variable will choose who the dealer is
         Player dealer = null;
         
         // Deal based upon the turn. The user will always start, and we will go in a clockwise motion
         // deciding who the next dealer will be
-        for(int turn = 1; turn <= rounds && user.getBalance() > 0; turn++)
+        for(int turn = initTurn; turn <= rounds && user.getBalance() > 0; turn++)
         {
             gui.unDeal();
             gui.setTurnCount(turn);
-            
             gui.update();
+            if(gui.getSaveGame()){
+                saveGameToJson(user,jeff,eliza,erin,rules,rounds,turn,"resumeGameSave.json");
+                gui.saveGameAck();
+            }
             if(turn == 1 || turn == 5 || turn == 9)
             {
                 rules.Deal(deck, user, jeff, eliza, erin);

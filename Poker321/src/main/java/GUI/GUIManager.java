@@ -9,49 +9,134 @@ import java.util.Set;
 import card.CardHand;
 import gameManager.PLAYER_ACTIONS;
 /**
- *
+ * The GUIManager class is responsible for managing the graphical user interface (GUI) of the poker game.
+ * It handles transitions between different states (such as the home menu, game settings, and the main game loop),
+ * user interactions, and updates the display accordingly.
+ * <p>
+ * The GUIManager interacts with different scene handlers (e.g., home menu, game settings, game loop) to display
+ * the relevant content based on the current state of the game. It also tracks the player's username, bet amount,
+ * and other game-related settings.
+ * </p>
+ * <p>
+ * This class implements the {@link GraphicsHandler} interface, which requires the implementation of methods 
+ * for managing the graphical interface, updating the game state, and handling player actions.
+ * </p>
+ * 
  * @author Nick
  */
-/**
- * Manages the graphical user interface, handling transitions between different states.
- */
+
 public class GUIManager implements GraphicsHandler {
-    private GUI_STATE activeGUI; // The currently active GUI state
-    private HomeMenuScene homeHandler; // Handler for the home menu scene
-    private Game_settings settingsHandler; // Handler for preplay settings scene
-    private GameLoopScene gameDisplay; // Handler for the game loop scene
-    private Scene[] scenes; //Array of the different GUI windows
-    private String username; // Name of the user
-    private int turnCount; //Number of rounds to play
-    private int betAmount; // Amount of money put down by player
-    private int maxMoney; // Starting money
-    private int maxTurns; //Maximum number of rounds
-    private boolean saveGame; //Should the game be saved
+    /**
+     * The currently active GUI state.
+     */
+    private GUI_STATE activeGUI; 
+    
+     /**
+     * Handler for the home menu scene.
+     */
+    private HomeMenuScene homeHandler; 
+    
+    /**
+     * Handler for the pre-play settings scene.
+     */
+    private Game_settings settingsHandler; 
+    
+    /**
+     * Handler for the game loop scene.
+     */
+    private GameLoopScene gameDisplay;
+    
+    /**
+     * Array of all GUI scenes.
+     */
+    private Scene[] scenes;
+    
+    /**
+     * The username of the current player.
+     */
+    private String username; 
+    
+    /**
+     * The number of rounds to play.
+     */
+    private int turnCount; 
+    
+    /**
+     * The amount of money the player has bet.
+     */
+    private int betAmount; 
+    
+    /**
+     * The starting amount of money for the player.
+     */
+    private int maxMoney;
+    
+    /**
+     * The maximum number of rounds to be played.
+     */
+    private int maxTurns; 
+    
+    /**
+     * Flag to determine if the game should be saved.
+     */
+    private boolean saveGame;
+    
+    /**
+     * Constructs a new GUIManager and initializes all the GUI scenes.
+     */
     public GUIManager(){        
         this.activeGUI = GUI_STATE.HOME_MENU;
         this.homeHandler = new HomeMenuScene();
         this.settingsHandler = new Game_settings();
         this.gameDisplay = new GameLoopScene(); 
         this.scenes = new Scene[] {homeHandler,settingsHandler,gameDisplay};
+        //Set all scenes to be invisible initially
         for(int i =0;i<this.scenes.length;i++){
             this.scenes[i].setVisible(false);
         }
+        //set active gui to home menu
         this.setActiveGUI(this.activeGUI);
+        
         this.saveGame = false;
         this.maxMoney = 0;
         this.maxTurns = 0;
         this.username = "";
     }
-    //Returns the starting amount of money
+    
+     /**
+     * Returns the starting amount of money for the player.
+     * 
+     * @return The starting amount of money.
+     */
     public int getStartingMoney(){
         return this.maxMoney;
     }
+    
+    /**
+     * Returns the maximum number of rounds in the game.
+     * 
+     * @return The maximum number of rounds.
+     */
     public int getMaxTurns(){
         return this.maxTurns;
     }
+    
+    /**
+     * Returns the username of the current player.
+     * 
+     * @return The player's username.
+     */
     public String getUserName(){
         return username;
     }
+    
+    
+    /**
+     * Folds the specified player's hand in the game loop.
+     * 
+     * @param playerId The ID of the player who wants to fold.
+     */
+
     public void fold(int playerId){
         this.gameDisplay.fold(playerId);
     }
@@ -67,21 +152,35 @@ public class GUIManager implements GraphicsHandler {
         this.activeGUI = state;
         this.scenes[this.activeGUI.ordinal()].setVisible(true);   
     }
+    
+     /**
+     * Returns whether the game should be saved.
+     * 
+     * @return true if the game should be saved, false otherwise.
+     */
     public boolean getSaveGame(){
         return this.saveGame;
     }
     
+     /**
+     * Acknowledges the game save request and resets the save flag.
+     */
     public void saveGameAck(){
         this.gameDisplay.setSaveGame(false);
         this.saveGame = false;
     } 
-    public boolean getResumeGame(){
-        if(this.activeGUI == GUI_STATE.HOME_MENU){
-            return homeHandler.getResumeGame();
-        }
-        return false;
-    }
     
+    /**
+     * Checks if the player wants to resume the game from the home menu.
+     * 
+     * @return true if the player chooses to resume the game, false otherwise.
+     */
+    public boolean getResumeGame(){
+        return homeHandler.getResumeGame();
+    }
+    public void setUsername(String newName){
+        this.username = newName;
+    }
     private int turn =0;
     public void update(){
         try {
