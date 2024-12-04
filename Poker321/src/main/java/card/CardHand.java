@@ -34,7 +34,15 @@ public class CardHand extends Card
     {
         return fullHand;
     }
+    public void ClearTwoCardHand()
+    {
+        twoCardHand.clear();
+    }
     
+    public void ClearFullHand()
+    {
+      fullHand.clear();
+    }
     // We will need the high cards value in draws, so this function streamlines the process
     public int GetTwoCardHandHighCard()
     {
