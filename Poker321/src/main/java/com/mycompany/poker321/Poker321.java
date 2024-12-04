@@ -142,7 +142,18 @@ public class Poker321 {
                     gui.setTurn(0);
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     //check for raise or bet amount
+                    // USER
+                    userBet = gui.getRaiseAmount();
+                    
+                    while(userBet > user.getBalance())
+                    {
+                        action = gui.awaitPlayerAction();
+                        userBet = gui.getRaiseAmount();
+                    }
                     rules.AddToPot(userBet);
+                    gui.setMoney(0, user.getBalance() - userBet);
+                    gui.setMoney(4, rules.GetPot() + userBet);
+                    user.decreaseBalance(userBet);
                     
                     // jeff Bets
                     
@@ -153,8 +164,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
-                    rules.AddToPot(jeffBet);
+                    // JEFF
                     
+                    rules.AddToPot(jeffBet);
+                    gui.setMoney(1, jeff.getBalance() - jeffBet);
+                    gui.setMoney(4, rules.GetPot() + jeffBet);
+                    jeff.decreaseBalance(jeffBet);
                     // eliza bets
                     
                     gui.setTurn(2);
@@ -164,8 +179,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
-                    rules.AddToPot(elizaBet);
+                    // ELIZA
                     
+                    rules.AddToPot(elizaBet);
+                    gui.setMoney(2, eliza.getBalance() - elizaBet);
+                    gui.setMoney(4, rules.GetPot() + elizaBet);
+                    eliza.decreaseBalance(elizaBet);
                     // erin bets
                     
                     gui.setTurn(3);
@@ -175,7 +194,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // ERIN
+                    
                     rules.AddToPot(erinBet);
+                    gui.setMoney(3, erin.getBalance() - erinBet);
+                    gui.setMoney(4, rules.GetPot() + erinBet);
+                    erin.decreaseBalance(erinBet);
                 }
                 else if(dealer.getName() == jeff.getName())
                 {
@@ -188,7 +212,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // JEFF
+                    
                     rules.AddToPot(jeffBet);
+                    gui.setMoney(1, jeff.getBalance() - jeffBet);
+                    gui.setMoney(4, rules.GetPot() + jeffBet);
+                    jeff.decreaseBalance(jeffBet);
                     
                     // eliza bets
                     gui.setTurn(2);
@@ -198,7 +227,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // ELIZA
+                    
                     rules.AddToPot(elizaBet);
+                    gui.setMoney(2, eliza.getBalance() - elizaBet);
+                    gui.setMoney(4, rules.GetPot() + elizaBet);
+                    eliza.decreaseBalance(elizaBet);
                     
                     
                     // erin bets
@@ -209,7 +243,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // ERIN
+                    
                     rules.AddToPot(erinBet);
+                    gui.setMoney(3, erin.getBalance() - erinBet);
+                    gui.setMoney(4, rules.GetPot() + erinBet);
+                    erin.decreaseBalance(erinBet);
                     
                     
                     // user bets
@@ -223,7 +262,12 @@ public class Poker321 {
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     
                     //check for raise or bet amount
+                    // USER
+                    userBet = gui.getRaiseAmount();
                     rules.AddToPot(userBet);
+                    gui.setMoney(0, user.getBalance() - userBet);
+                    gui.setMoney(4, rules.GetPot() + userBet);
+                    user.decreaseBalance(userBet);
                 }
                 else if(dealer.getName() == eliza.getName())
                 {
@@ -235,7 +279,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // ELIZA
+                    
                     rules.AddToPot(elizaBet);
+                    gui.setMoney(2, eliza.getBalance() - elizaBet);
+                    gui.setMoney(4, rules.GetPot() + elizaBet);
+                    eliza.decreaseBalance(elizaBet);
                     
                     // erin bets
                     gui.setTurn(3);
@@ -245,13 +294,24 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // ERIN
+                    
                     rules.AddToPot(erinBet);
+                    gui.setMoney(3, erin.getBalance() - erinBet);
+                    gui.setMoney(4, rules.GetPot() + erinBet);
+                    erin.decreaseBalance(erinBet);
                     
                     // user bets
                     gui.setTurn(0);
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     //check for raise or bet amount
+                    // USER
+                    userBet = gui.getRaiseAmount();
+                    
                     rules.AddToPot(userBet);
+                    gui.setMoney(0, user.getBalance() - userBet);
+                    gui.setMoney(4, rules.GetPot() + userBet);
+                    user.decreaseBalance(userBet);
                     
                     
                     // jeff bets
@@ -262,7 +322,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // JEFF
+                    
                     rules.AddToPot(jeffBet);
+                    gui.setMoney(1, jeff.getBalance() - jeffBet);
+                    gui.setMoney(4, rules.GetPot() + jeffBet);
+                    jeff.decreaseBalance(jeffBet);
                 }
                 else
                 {
@@ -274,13 +339,25 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // ERIN
+                    
                     rules.AddToPot(erinBet);
+                    gui.setMoney(3, erin.getBalance() - erinBet);
+                    gui.setMoney(4, rules.GetPot() + erinBet);
+                    erin.decreaseBalance(erinBet);
                     
                     // user bets
                     gui.setTurn(0);
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     //check for raise or bet amount
+                    
+                    // USER
+                    userBet = gui.getRaiseAmount();
+                    
                     rules.AddToPot(userBet);
+                    gui.setMoney(0, user.getBalance() - userBet);
+                    gui.setMoney(4, rules.GetPot() + userBet);
+                    user.decreaseBalance(userBet);
                     
                     // jeff bets
                     gui.setTurn(1);
@@ -290,7 +367,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // JEFF
+                   
                     rules.AddToPot(jeffBet);
+                    gui.setMoney(1, jeff.getBalance() - jeffBet);
+                    gui.setMoney(4, rules.GetPot() + jeffBet);
+                    jeff.decreaseBalance(jeffBet);
                     
                     // eliza bets
                     gui.setTurn(2);
@@ -300,7 +382,12 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
+                    // ELIZA
+                    
                     rules.AddToPot(elizaBet);
+                    gui.setMoney(2, eliza.getBalance() - elizaBet);
+                    gui.setMoney(4, rules.GetPot() + elizaBet);
+                    eliza.decreaseBalance(elizaBet);
                 }
             }
             // Showdown
@@ -316,9 +403,14 @@ public class Poker321 {
                 gui.reveal(3, erin.GetCardHand());
             }
             int winner  = rules.DeclareWinner(user, jeff, eliza, erin);
+            gui.setMoney(0, user.getBalance());
+            gui.setMoney(1, jeff.getBalance());
+            gui.setMoney(2, eliza.getBalance());
+            gui.setMoney(3, erin.getBalance());
+            gui.setMoney(4, 0);
             System.out.println(winner);
             gui.setWinner(winner);//Get the winner on the GUI
-            //rules.ResetPot();
+            rules.ResetPot();
             deck.ResetDeck();
             gui.update();
         }
