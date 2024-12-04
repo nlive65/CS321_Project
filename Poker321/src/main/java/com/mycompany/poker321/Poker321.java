@@ -13,6 +13,7 @@ import gameManager.Player;
 import GUI.GUIManager;
 import GUI.GUI_STATE;
 import gameManager.PLAYER_ACTIONS;
+import CPU.HardCPU;
 
 
 import org.json.JSONObject;
@@ -79,6 +80,8 @@ public class Poker321 {
         // Declaring the rules and deck object
         GameRules rules = new GameRules();
         CardDeck deck = new CardDeck();
+        
+        HardCPU cpuLogic = new HardCPU("", 0, 0);
         while(true){
             
         boolean didResume = false;
@@ -149,6 +152,22 @@ public class Poker321 {
         // deciding who the next dealer will be
         for(int turn = initTurn; turn <= rounds && user.getBalance() > 0; turn++)
         {
+            if(user.getBalance() == 0)
+            {
+                user.fold();
+            }
+            if(jeff.getBalance() == 0)
+            {
+                jeff.fold();
+            }
+            if(eliza.getBalance() == 0)
+            {
+                eliza.fold();
+            }
+            if(erin.getBalance() == 0)
+            {
+                erin.fold();
+            }
             gui.unDeal();
             gui.setTurnCount(turn);
             gui.update();
@@ -233,21 +252,31 @@ public class Poker321 {
                     // PLay game with the user as dealer
                     // user makes bet
                     gui.setTurn(0);
-                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
-                    //check for raise or bet amount
-                    // USER
-                    userBet = gui.getRaiseAmount();
                     
-                    while(userBet > user.getBalance())
+                    if(user.isActive() && user.getBalance() > 0)
                     {
-                        action = gui.awaitPlayerAction();
-                        userBet = gui.getRaiseAmount();
-                    }
-                    rules.AddToPot(userBet);
-                    gui.setMoney(0, user.getBalance() - userBet);
-                    gui.setMoney(4, rules.GetPot() + userBet);
-                    user.decreaseBalance(userBet);
+                        PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                        //check for raise or bet amount
+                        // USER
+                        if(action == PLAYER_ACTIONS.FOLD)
+                        {
+                            user.fold();
+                        }
+                        if(user.isActive())
+                        {
+                            userBet = gui.getRaiseAmount();
                     
+                            while(userBet > user.getBalance())
+                            {
+                                action = gui.awaitPlayerAction();
+                                userBet = gui.getRaiseAmount();
+                            }
+                            rules.AddToPot(userBet);
+                            gui.setMoney(0, user.getBalance() - userBet);
+                            gui.setMoney(4, rules.GetPot() + userBet);
+                            user.decreaseBalance(userBet);
+                        }
+                    }
                     // jeff Bets
                     
                     gui.setTurn(1);
@@ -258,11 +287,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // JEFF
-                    
-                    rules.AddToPot(jeffBet);
-                    gui.setMoney(1, jeff.getBalance() - jeffBet);
-                    gui.setMoney(4, rules.GetPot() + jeffBet);
-                    jeff.decreaseBalance(jeffBet);
+                    if(jeff.isActive())
+                    {
+                        jeffBet = cpuLogic.evaluateHandStrength(jeff);
+                        rules.AddToPot(jeffBet);
+                        gui.setMoney(1, jeff.getBalance() - jeffBet);
+                        gui.setMoney(4, rules.GetPot() + jeffBet);
+                        jeff.decreaseBalance(jeffBet);
+                    }
                     // eliza bets
                     
                     gui.setTurn(2);
@@ -273,11 +305,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // ELIZA
-                    
-                    rules.AddToPot(elizaBet);
-                    gui.setMoney(2, eliza.getBalance() - elizaBet);
-                    gui.setMoney(4, rules.GetPot() + elizaBet);
-                    eliza.decreaseBalance(elizaBet);
+                    if(eliza.isActive())
+                    {
+                        elizaBet = cpuLogic.evaluateHandStrength(eliza);
+                        rules.AddToPot(elizaBet);
+                        gui.setMoney(2, eliza.getBalance() - elizaBet);
+                        gui.setMoney(4, rules.GetPot() + elizaBet);
+                        eliza.decreaseBalance(elizaBet);
+                    }
                     // erin bets
                     
                     gui.setTurn(3);
@@ -288,11 +323,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // ERIN
-                    
-                    rules.AddToPot(erinBet);
-                    gui.setMoney(3, erin.getBalance() - erinBet);
-                    gui.setMoney(4, rules.GetPot() + erinBet);
-                    erin.decreaseBalance(erinBet);
+                    if(erin.isActive())
+                    {
+                        erinBet = cpuLogic.evaluateHandStrength(erin);
+                        rules.AddToPot(erinBet);
+                        gui.setMoney(3, erin.getBalance() - erinBet);
+                        gui.setMoney(4, rules.GetPot() + erinBet);
+                        erin.decreaseBalance(erinBet);
+                    }
                 }
                 else if(dealer.getName() == jeff.getName())
                 {
@@ -306,12 +344,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // JEFF
-                    
-                    rules.AddToPot(jeffBet);
-                    gui.setMoney(1, jeff.getBalance() - jeffBet);
-                    gui.setMoney(4, rules.GetPot() + jeffBet);
-                    jeff.decreaseBalance(jeffBet);
-                    
+                    if(jeff.isActive())
+                    {
+                        jeffBet = cpuLogic.evaluateHandStrength(jeff);
+                        rules.AddToPot(jeffBet);
+                        gui.setMoney(1, jeff.getBalance() - jeffBet);
+                        gui.setMoney(4, rules.GetPot() + jeffBet);
+                        jeff.decreaseBalance(jeffBet);
+                    }
                     // eliza bets
                     gui.setTurn(2);
                     try{
@@ -321,12 +361,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // ELIZA
-                    
-                    rules.AddToPot(elizaBet);
-                    gui.setMoney(2, eliza.getBalance() - elizaBet);
-                    gui.setMoney(4, rules.GetPot() + elizaBet);
-                    eliza.decreaseBalance(elizaBet);
-                    
+                    if(eliza.isActive())
+                    {
+                        elizaBet = cpuLogic.evaluateHandStrength(eliza);
+                        rules.AddToPot(elizaBet);
+                        gui.setMoney(2, eliza.getBalance() - elizaBet);
+                        gui.setMoney(4, rules.GetPot() + elizaBet);
+                        eliza.decreaseBalance(elizaBet);
+                    }
                     
                     // erin bets
                     gui.setTurn(3);
@@ -337,12 +379,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // ERIN
-                    
-                    rules.AddToPot(erinBet);
-                    gui.setMoney(3, erin.getBalance() - erinBet);
-                    gui.setMoney(4, rules.GetPot() + erinBet);
-                    erin.decreaseBalance(erinBet);
-                    
+                    if(erin.isActive())
+                    {
+                        erinBet = cpuLogic.evaluateHandStrength(erin);
+                        rules.AddToPot(erinBet);
+                        gui.setMoney(3, erin.getBalance() - erinBet);
+                        gui.setMoney(4, rules.GetPot() + erinBet);
+                        erin.decreaseBalance(erinBet);
+                    }
                     
                     // user bets
                     gui.setTurn(0);
@@ -352,15 +396,30 @@ public class Poker321 {
                     catch(Exception ex){
                         ex.printStackTrace();
                     }
-                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    if(user.isActive())
+                    {
+                        PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                        //check for raise or bet amount
+                        // USER
+                        if(action == PLAYER_ACTIONS.FOLD)
+                        {
+                            user.fold();
+                        }
+                        if(user.isActive())
+                        {
+                            userBet = gui.getRaiseAmount();
                     
-                    //check for raise or bet amount
-                    // USER
-                    userBet = gui.getRaiseAmount();
-                    rules.AddToPot(userBet);
-                    gui.setMoney(0, user.getBalance() - userBet);
-                    gui.setMoney(4, rules.GetPot() + userBet);
-                    user.decreaseBalance(userBet);
+                            while(userBet > user.getBalance())
+                            {
+                                action = gui.awaitPlayerAction();
+                                userBet = gui.getRaiseAmount();
+                            }
+                            rules.AddToPot(userBet);
+                            gui.setMoney(0, user.getBalance() - userBet);
+                            gui.setMoney(4, rules.GetPot() + userBet);
+                            user.decreaseBalance(userBet);
+                        }
+                    }
                 }
                 else if(dealer.getName() == eliza.getName())
                 {
@@ -373,12 +432,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // ELIZA
-                    
-                    rules.AddToPot(elizaBet);
-                    gui.setMoney(2, eliza.getBalance() - elizaBet);
-                    gui.setMoney(4, rules.GetPot() + elizaBet);
-                    eliza.decreaseBalance(elizaBet);
-                    
+                    if(eliza.isActive())
+                    {
+                        elizaBet = cpuLogic.evaluateHandStrength(eliza);
+                        rules.AddToPot(elizaBet);
+                        gui.setMoney(2, eliza.getBalance() - elizaBet);
+                        gui.setMoney(4, rules.GetPot() + elizaBet);
+                        eliza.decreaseBalance(elizaBet);
+                    }
                     // erin bets
                     gui.setTurn(3);
                     try{
@@ -388,23 +449,40 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // ERIN
-                    
-                    rules.AddToPot(erinBet);
-                    gui.setMoney(3, erin.getBalance() - erinBet);
-                    gui.setMoney(4, rules.GetPot() + erinBet);
-                    erin.decreaseBalance(erinBet);
-                    
+                    if(erin.isActive())
+                    {
+                        erinBet = cpuLogic.evaluateHandStrength(erin);
+                        rules.AddToPot(erinBet);
+                        gui.setMoney(3, erin.getBalance() - erinBet);
+                        gui.setMoney(4, rules.GetPot() + erinBet);
+                        erin.decreaseBalance(erinBet);
+                    }
                     // user bets
                     gui.setTurn(0);
-                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
-                    //check for raise or bet amount
-                    // USER
-                    userBet = gui.getRaiseAmount();
+                   if(user.isActive())
+                    {
+                        PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                        //check for raise or bet amount
+                        // USER
+                        if(action == PLAYER_ACTIONS.FOLD)
+                        {
+                            user.fold();
+                        }
+                        if(user.isActive())
+                        {
+                            userBet = gui.getRaiseAmount();
                     
-                    rules.AddToPot(userBet);
-                    gui.setMoney(0, user.getBalance() - userBet);
-                    gui.setMoney(4, rules.GetPot() + userBet);
-                    user.decreaseBalance(userBet);
+                            while(userBet > user.getBalance())
+                            {
+                                action = gui.awaitPlayerAction();
+                                userBet = gui.getRaiseAmount();
+                            }
+                            rules.AddToPot(userBet);
+                            gui.setMoney(0, user.getBalance() - userBet);
+                            gui.setMoney(4, rules.GetPot() + userBet);
+                            user.decreaseBalance(userBet);
+                        }
+                    }
                     
                     
                     // jeff bets
@@ -416,11 +494,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // JEFF
-                    
-                    rules.AddToPot(jeffBet);
-                    gui.setMoney(1, jeff.getBalance() - jeffBet);
-                    gui.setMoney(4, rules.GetPot() + jeffBet);
-                    jeff.decreaseBalance(jeffBet);
+                    if(jeff.isActive())
+                    {
+                        jeffBet = cpuLogic.evaluateHandStrength(jeff);
+                        rules.AddToPot(jeffBet);
+                        gui.setMoney(1, jeff.getBalance() - jeffBet);
+                        gui.setMoney(4, rules.GetPot() + jeffBet);
+                        jeff.decreaseBalance(jeffBet);
+                    }
                 }
                 else
                 {
@@ -433,24 +514,40 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // ERIN
-                    
-                    rules.AddToPot(erinBet);
-                    gui.setMoney(3, erin.getBalance() - erinBet);
-                    gui.setMoney(4, rules.GetPot() + erinBet);
-                    erin.decreaseBalance(erinBet);
-                    
+                    if(erin.isActive())
+                    {
+                        erinBet = cpuLogic.evaluateHandStrength(erin);
+                        rules.AddToPot(erinBet);
+                        gui.setMoney(3, erin.getBalance() - erinBet);
+                        gui.setMoney(4, rules.GetPot() + erinBet);
+                        erin.decreaseBalance(erinBet);
+                    }
                     // user bets
                     gui.setTurn(0);
-                    PLAYER_ACTIONS action = gui.awaitPlayerAction();
-                    //check for raise or bet amount
+                    if(user.isActive())
+                    {
+                        PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                        //check for raise or bet amount
+                        // USER
+                        if(action == PLAYER_ACTIONS.FOLD)
+                        {
+                            user.fold();
+                        }
+                        if(user.isActive())
+                        {
+                            userBet = gui.getRaiseAmount();
                     
-                    // USER
-                    userBet = gui.getRaiseAmount();
-                    
-                    rules.AddToPot(userBet);
-                    gui.setMoney(0, user.getBalance() - userBet);
-                    gui.setMoney(4, rules.GetPot() + userBet);
-                    user.decreaseBalance(userBet);
+                            while(userBet > user.getBalance())
+                            {
+                                action = gui.awaitPlayerAction();
+                                userBet = gui.getRaiseAmount();
+                            }
+                            rules.AddToPot(userBet);
+                            gui.setMoney(0, user.getBalance() - userBet);
+                            gui.setMoney(4, rules.GetPot() + userBet);
+                            user.decreaseBalance(userBet);
+                        }
+                    }
                     
                     // jeff bets
                     gui.setTurn(1);
@@ -461,12 +558,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // JEFF
-                   
-                    rules.AddToPot(jeffBet);
-                    gui.setMoney(1, jeff.getBalance() - jeffBet);
-                    gui.setMoney(4, rules.GetPot() + jeffBet);
-                    jeff.decreaseBalance(jeffBet);
-                    
+                    if(jeff.isActive())
+                    {
+                        jeffBet = cpuLogic.evaluateHandStrength(jeff);
+                        rules.AddToPot(jeffBet);
+                        gui.setMoney(1, jeff.getBalance() - jeffBet);
+                        gui.setMoney(4, rules.GetPot() + jeffBet);
+                        jeff.decreaseBalance(jeffBet);
+                    }
                     // eliza bets
                     gui.setTurn(2);
                     try{
@@ -476,11 +575,14 @@ public class Poker321 {
                         ex.printStackTrace();
                     }
                     // ELIZA
-                    
-                    rules.AddToPot(elizaBet);
-                    gui.setMoney(2, eliza.getBalance() - elizaBet);
-                    gui.setMoney(4, rules.GetPot() + elizaBet);
-                    eliza.decreaseBalance(elizaBet);
+                    if(eliza.isActive())
+                    {
+                        elizaBet = cpuLogic.evaluateHandStrength(eliza);
+                        rules.AddToPot(elizaBet);
+                        gui.setMoney(2, eliza.getBalance() - elizaBet);
+                        gui.setMoney(4, rules.GetPot() + elizaBet);
+                        eliza.decreaseBalance(elizaBet);
+                    }
                 }
             }
             // Showdown
@@ -506,6 +608,7 @@ public class Poker321 {
             rules.ResetPot();
             deck.ResetDeck();
             gui.update();
+            user.resetFold();
         }
         gui.setActiveGUI(GUI_STATE.HOME_MENU);
         gui.update();

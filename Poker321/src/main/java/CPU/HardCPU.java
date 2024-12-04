@@ -1,6 +1,7 @@
 package CPU;
 import card.*;
 import java.util.ArrayList;
+import gameManager.Player;
 
 
 /*
@@ -16,13 +17,14 @@ import java.util.ArrayList;
 
 public class HardCPU extends CPU {
     
+    
     public HardCPU(String name, int chips, int turnNumber) {
         super(name, chips, turnNumber);
     }
 
     // method to evaluate the strength of the hand
-    public int evaluateHandStrength() {
-        ArrayList<Card> hand = this.GetCardHand().GetFullHand(); 
+    public int evaluateHandStrength(Player player) {
+        ArrayList<Card> hand = player.GetCardHand().GetFullHand(); 
         this.GetCardHand().SortFullHand();  
 
         // check for hand types
@@ -115,7 +117,7 @@ public class HardCPU extends CPU {
     // Method to make a move based on the hand strength
     @Override
     public void makeMove() {
-        int handStrength = evaluateHandStrength();
+        int handStrength = 0;
         int currentBetAmount = getCurrentBet();  
 
         // if the hand is strong (strength >= 70), bet 100 chips

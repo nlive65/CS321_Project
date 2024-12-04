@@ -1,6 +1,7 @@
 package gameManager;
 
 import card.CardHand;
+import CPU.HardCPU;
 
 /**
  *
@@ -116,8 +117,14 @@ public class Player {
     
     public void fold() 
     {
+        isActive = false;
         this.hasFolded = true; 
         System.out.println(name + " has folded");
+    }
+    
+    public void resetFold()
+    {
+        isActive = true;
     }
 
     public void check() 
