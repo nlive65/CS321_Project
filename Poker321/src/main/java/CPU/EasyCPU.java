@@ -15,9 +15,9 @@ public class EasyCPU extends CPU
 {
 
     // constructor
-    public EasyCPU(String name, int chips) 
+    public EasyCPU(String name, int chips,int turnNumber) 
     {
-
+        super(name,chips,turnNumber);
     }
 
     // method to make move based on user

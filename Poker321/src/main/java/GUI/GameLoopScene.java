@@ -68,6 +68,9 @@ public class GameLoopScene extends Scene {
         jLabel25.setVisible(false);
         jLabel26.setVisible(false);
     }
+    public void setPlayerAction(){
+        this.takenAction = PLAYER_ACTIONS.IDLE;
+    }
     public PLAYER_ACTIONS getTakenAction(){
         return this.takenAction;
     }
@@ -189,7 +192,26 @@ public class GameLoopScene extends Scene {
         
     }
     
-
+    public void fold(int playerId){
+        switch(playerId){
+            case 0:
+                this.jLabel3.setVisible(false);
+                this.jLabel20.setVisible(false);
+                break;
+            case 1://Jeff
+                jLabel14.setVisible(false);
+                jLabel15.setVisible(false);
+                break;
+            case 2://Eliza
+                jLabel18.setVisible(false);
+                jLabel19.setVisible(false);
+                break;
+            case 3: //Erin
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                break;
+        }
+    }
     
     public void reveal(int playerId, CardHand newCard){
         ArrayList<Card> hand = newCard.GetTwoCardHand();
@@ -197,8 +219,6 @@ public class GameLoopScene extends Scene {
             case 0://Player
                 Card card1 = hand.get(0);
                 Card card2 = hand.get(1);
-                System.out.println(Character.toUpperCase(card1.GetSuit()));
-                System.out.println(card1.GetValue());
                 jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
                 jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card2.GetSuit()) + card2.GetValue()+ ".png"))); // NOI18N
                 jLabel3.setVisible(true);
@@ -244,11 +264,13 @@ public class GameLoopScene extends Scene {
                 jLabel24.setVisible(true);
                 break;
             case 5://Turn
+                hand = newCard.GetFullHand();
                 card1 = hand.get(0);
                 jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
                 jLabel25.setVisible(true);
                 break;
             case 6://River
+                hand = newCard.GetFullHand();
                 card1 = hand.get(0);
                 jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/"+Character.toUpperCase(card1.GetSuit()) + card1.GetValue()+ ".png"))); // NOI18N
                 jLabel26.setVisible(true);

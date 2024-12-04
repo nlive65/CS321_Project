@@ -70,7 +70,7 @@ public class CardDeck extends Card
     private void ShuffleDeck()
     {
         Collections.shuffle(deck);
-        System.out.println(deck.get(0).GetSuit() + deck.get(0).GetValue());
+        //System.out.println(deck.get(0).GetSuit() + deck.get(0).GetValue());
     }
     
     // This will take the top card in the array list and remove it.
