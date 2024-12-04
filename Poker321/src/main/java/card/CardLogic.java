@@ -9,7 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 /**
  *
- * @author eleph
+ * @author Sam Tindol
+ * 
+ * This class is an abstract class that simply implements poker logic in Java code.
+ * Using the basics of the card class and looking at the attributes of the CardHand
+ * class, the class  uses functions that will decipher what hand a user has and will
+ * assign the user's hand a value that is associated with its rank in the poker hand hierarchy.
  */
 public abstract class CardLogic extends CardHand{
     

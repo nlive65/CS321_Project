@@ -9,7 +9,9 @@ package card;
  * @author Sam Tindol
  * 
  * This is will be our most basic class of the game rules. This will just allow
- * us to create cards to add to our decks and hands for the game.
+ * us to create cards to add to our decks and hands for the game. The Card class just encapsulates
+ * the needed identifiers for a playing card for use in the game. We have a character that represents the suit
+ * and an integer that represents the value of the card.
  */
 public class Card 
 {
