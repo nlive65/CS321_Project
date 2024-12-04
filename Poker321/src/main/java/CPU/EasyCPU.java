@@ -20,6 +20,7 @@ public class EasyCPU extends CPU
     public EasyCPU(String name, int chips, int playerTurn) 
     {
         super(name, chips, playerTurn);  // Calls the parent constructor
+
     }
 
     // method to make move based on user

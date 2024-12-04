@@ -26,6 +26,8 @@ public class Poker321 {
         // Declaring the rules and deck object
         GameRules rules = new GameRules();
         CardDeck deck = new CardDeck();
+        while(true){
+            
         
         // Placeholders for info from GUI
         while(gui.getState() != GUI_STATE.GAMELOOP){
@@ -35,7 +37,7 @@ public class Poker321 {
             }
         }
         String playerName = gui.getUserName();
-        int chipAmount = gui.getStartingMoney();
+        int chipAmount = gui.getStartingMoney()*10;
         int rounds = gui.getMaxTurns();
         // Initiate the players
         Player user = new Player(playerName, chipAmount, 0);
@@ -111,19 +113,22 @@ public class Poker321 {
                 jeff.GetCardHand().AddToFullHand(pulledCard);
                 eliza.GetCardHand().AddToFullHand(pulledCard);
                 erin.GetCardHand().AddToFullHand(pulledCard);
-                System.out.println(flop.GetFullHand().get(index));
+                //System.out.println(flop.GetFullHand().get(index));
             }
             gui.reveal(4, flop);
             for(int betTurn = 1; betTurn <= 3; betTurn++)
-            {
-                pulledCard = deck.PullTopCard();
+            {   
+                if(betTurn !=1){
+                    pulledCard = deck.PullTopCard();
                 // This card will be siplayed in the middle of the table
-                gui.setTurn(betTurn--);
-                user.GetCardHand().AddToFullHand(pulledCard);
-                jeff.GetCardHand().AddToFullHand(pulledCard);
-                eliza.GetCardHand().AddToFullHand(pulledCard);
-                erin.GetCardHand().AddToFullHand(pulledCard);
-                
+                    user.GetCardHand().AddToFullHand(pulledCard);
+                    jeff.GetCardHand().AddToFullHand(pulledCard);
+                    eliza.GetCardHand().AddToFullHand(pulledCard);
+                    erin.GetCardHand().AddToFullHand(pulledCard);
+                    CardHand newHand = new CardHand();
+                    newHand.AddToFullHand(pulledCard);
+                    gui.reveal(betTurn+3,newHand);
+                }
                 int userBet = 0;
                 int jeffBet = 0;
                 int elizaBet = 0;
@@ -134,33 +139,89 @@ public class Poker321 {
                     
                     // PLay game with the user as dealer
                     // user makes bet
+                    gui.setTurn(0);
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     //check for raise or bet amount
                     rules.AddToPot(userBet);
                     
                     // jeff Bets
+                    
+                    gui.setTurn(1);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(jeffBet);
                     
                     // eliza bets
+                    
+                    gui.setTurn(2);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(elizaBet);
                     
                     // erin bets
+                    
+                    gui.setTurn(3);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(erinBet);
                 }
                 else if(dealer.getName() == jeff.getName())
                 {
                     // PLay game with jeff as dealer
                     // jeff bets
+                    
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(jeffBet);
                     
                     // eliza bets
+                    gui.setTurn(2);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(elizaBet);
                     
+                    
                     // erin bets
+                    gui.setTurn(3);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(erinBet);
                     
+                    
                     // user bets
+                    gui.setTurn(0);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
+                    
                     //check for raise or bet amount
                     rules.AddToPot(userBet);
                 }
@@ -168,44 +229,102 @@ public class Poker321 {
                 {
                     // Play with eliza as the dealer
                     // eliza bets
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(elizaBet);
                     
                     // erin bets
+                    gui.setTurn(3);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    gui.setTurn(0);
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     //check for raise or bet amount
                     rules.AddToPot(userBet);
                     
                     
                     // jeff bets
+                    gui.setTurn(1);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(jeffBet);
                 }
                 else
                 {
                     // Play with erin as the dealer
                     // erin bets
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(erinBet);
                     
                     // user bets
+                    gui.setTurn(0);
                     PLAYER_ACTIONS action = gui.awaitPlayerAction();
                     //check for raise or bet amount
                     rules.AddToPot(userBet);
                     
                     // jeff bets
+                    gui.setTurn(1);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(jeffBet);
                     
                     // eliza bets
+                    gui.setTurn(2);
+                    try{
+                        java.lang.Thread.currentThread().sleep(250);
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                     rules.AddToPot(elizaBet);
                 }
             }
             // Showdown
-            rules.DeclareWinner(user, jeff, eliza, erin);
-            //gui.setWinner()//Get the winner on the GUI
+            //CHECK WHO DIDN'T FOLD
+            CardHand hand = new CardHand();
+            if(jeff.isActive()){
+                gui.reveal(1,jeff.GetCardHand());
+            }
+            if(eliza.isActive()){
+                gui.reveal(2,eliza.GetCardHand());
+            }
+            if(erin.isActive()){
+                gui.reveal(3, erin.GetCardHand());
+            }
+            int winner  = rules.DeclareWinner(user, jeff, eliza, erin);
+            System.out.println(winner);
+            gui.setWinner(winner);//Get the winner on the GUI
             //rules.ResetPot();
             deck.ResetDeck();
             gui.update();
         }
+        gui.setActiveGUI(GUI_STATE.HOME_MENU);
+        gui.update();
+        }
+        
     }
 }

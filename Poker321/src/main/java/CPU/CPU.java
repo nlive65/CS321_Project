@@ -18,6 +18,7 @@ public abstract class CPU extends Player
     protected int currentBet;
 
     // constructor
+
     public CPU(String name, int chips, int playerTurn) 
     {
         super(name, chips, playerTurn);
