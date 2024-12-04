@@ -1,0 +1,65 @@
+{
+    "pot": 0,
+    "round": 2,
+    "eliza": {
+        "cards": [
+            {
+                "suit": 115,
+                "value": 8
+            },
+            {
+                "suit": 115,
+                "value": 9
+            }
+        ],
+        "balance": 20,
+        "name": "Eliza",
+        "isActive": true
+    },
+    "jeff": {
+        "cards": [
+            {
+                "suit": 99,
+                "value": 7
+            },
+            {
+                "suit": 104,
+                "value": 11
+            }
+        ],
+        "balance": 20,
+        "name": "Jeff",
+        "isActive": true
+    },
+    "user": {
+        "cards": [
+            {
+                "suit": 100,
+                "value": 9
+            },
+            {
+                "suit": 104,
+                "value": 13
+            }
+        ],
+        "balance": 20,
+        "name": "User name",
+        "isActive": true
+    },
+    "erin": {
+        "cards": [
+            {
+                "suit": 100,
+                "value": 14
+            },
+            {
+                "suit": 104,
+                "value": 14
+            }
+        ],
+        "balance": 20,
+        "name": "Erin",
+        "isActive": true
+    },
+    "rounds": 3
+}
