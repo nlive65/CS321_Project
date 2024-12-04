@@ -39,16 +39,7 @@ public class EasyCPU extends CPU
             // otherwise, bet a small amount
             int betAmount = Math.min(10, getBalance());  // bet 10 chips, but not more than the remaining balance
             System.out.println(getName() + " decides to bet " + betAmount + " chips.");
-            decreaseBalance(betAmount);  // Calls the placeBet method from the CPU class
+            decreaseBalance(betAmount); 
         }
     }
-
-    //fold method to override and add specific behavior for EasyCPU.
-    @Override
-    public void fold() 
-    {
-        super.fold();
-        System.out.println(getName() + " folded.");
-    }
-
 }
