@@ -12,7 +12,6 @@ CPU\ChaoticCPU.class
 com\mycompany\poker321\GAME_EVENTS.class
 GUI\Game_settings$5.class
 GUI\GameLoopScene$6.class
-gameManager\CardHand.class
 com\mycompany\poker321\Poker321.class
 GUI\GameLoopScene$1.class
 GUI\HomeMenuScene$1.class
@@ -24,7 +23,6 @@ GUI\GUIManager.class
 CPU\CPU.class
 GUI\Game_settings$1.class
 GUI\Scene.class
-com\mycompany\poker\MenuInteraction.class
 GUI\HomeMenuScene$3.class
 CPU\EasyCPU.class
 card\Card.class

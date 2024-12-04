@@ -261,6 +261,7 @@ public class Poker321 {
                         if(action == PLAYER_ACTIONS.FOLD)
                         {
                             user.fold();
+                            gui.fold(0);
                         }
                         if(user.isActive())
                         {
@@ -290,6 +291,7 @@ public class Poker321 {
                     if(jeff.isActive())
                     {
                         jeffBet = cpuLogic.evaluateHandStrength(jeff);
+                        
                         rules.AddToPot(jeffBet);
                         gui.setMoney(1, jeff.getBalance() - jeffBet);
                         gui.setMoney(4, rules.GetPot() + jeffBet);

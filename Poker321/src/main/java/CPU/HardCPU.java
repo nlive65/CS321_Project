@@ -26,26 +26,35 @@ public class HardCPU extends CPU {
     public int evaluateHandStrength(Player player) {
         ArrayList<Card> hand = player.GetCardHand().GetFullHand(); 
         this.GetCardHand().SortFullHand();  
-
+        int balance = player.getBalance();
+        double bet = 0;
         // check for hand types
         if (isRoyalFlush(hand)) {
-            return 100;
+            return  balance;
         } else if (isStraightFlush(hand)) {
-            return 90;  
+            bet = 0.9*balance;
+            return (int) bet;  
         } else if (isFourOfAKind(hand)) {
-            return 80;  
+            bet = 0.8*balance;
+            return (int) bet;  
         } else if (isFullHouse(hand)) {
-            return 70; 
+            bet = 0.7*balance;
+            return (int) bet; 
         } else if (isFlush(hand)) {
-            return 60;  
+            bet = 0.6*balance;
+            return (int) bet;  
         } else if (isStraight(hand)) {
-            return 50; 
+            bet = 0.5*balance;
+            return (int) bet; 
         } else if (isThreeOfAKind(hand)) {
-            return 40;  
+            bet = 0.4*balance;
+            return (int) bet;  
         } else if (isPair(hand)) {
-            return 20;  
+            bet = 0.2*balance;
+            return (int) bet;  
         } else {
-            return 10; 
+            bet = 0.1*balance;
+            return (int) bet; 
         }
     }
 
@@ -119,10 +128,10 @@ public class HardCPU extends CPU {
     public void makeMove() {
         int handStrength = 0;
         int currentBetAmount = getCurrentBet();  
-
+        
         // if the hand is strong (strength >= 70), bet 100 chips
         if (handStrength >= 70) {
-            int betAmount = 100;
+            int betAmount = (int) 0.7*getBalance();
             if (canBet(betAmount)) 
             {
                 decreaseBalance(betAmount);  // place the bet 
