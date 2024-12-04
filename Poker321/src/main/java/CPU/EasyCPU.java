@@ -37,7 +37,7 @@ public class EasyCPU extends CPU
             fold();  
         } else {
             // otherwise, bet a small amount
-            int betAmount = Math.min(10, getBalance());  // bet 10 chips, but not more than the remaining balance
+            int betAmount = Math.min(1, getBalance());  // bet 1 chips, but not more than the remaining balance
             System.out.println(getName() + " decides to bet " + betAmount + " chips.");
             decreaseBalance(betAmount); 
         }

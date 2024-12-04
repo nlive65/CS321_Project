@@ -45,7 +45,7 @@ public class ChaoticCPU extends CPU
             fold();  // calls the fold method
         } else if (decision == 1) 
         {
-            int betAmount = random.nextInt(50) + 1;  // Get a random bet amount between 1 and 50
+            int betAmount = random.nextInt(getBalance()) + 1;  // Get a random bet amount between 1 and 50
             // check if CPU has enough chips
             if (betAmount > getBalance())
             {
