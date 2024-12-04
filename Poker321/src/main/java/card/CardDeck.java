@@ -12,6 +12,10 @@ import java.util.Collections;
  * 
  * his class will serve as our deck of cards for the game. We will be able
  * to create, empty, fill, shuffle, and draw from a deck with this class.
+ * The deck is just represented by an ArrayList that is manipulated. We are using the 
+ * ArrayList of cards similar to a stack because we are popping the top card out of the
+ * list. We used an ArrayList because it has an easy shuffle feature to easily shuffle the 
+ * card deck.
  */
 public class CardDeck extends Card
 {

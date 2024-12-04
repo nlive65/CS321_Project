@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * will have two different array lists of cards, a two card hand of their
  * personal cards and a full up-to seven card hand that will be the user's
  * two private cards plus the up to five in the middle of the playing board.
+ * The other methods of the class simply manipulate either of the two ArrayLists
+ * to change for the needed responsibilities in the main program.
  */
 public class CardHand extends Card
 {
