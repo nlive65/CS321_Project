@@ -5,7 +5,7 @@
 package gameManager;
 
 /**
- *
+ *Enum to handle what actions the user or any player can make
  * @author Nick
  */
 public enum PLAYER_ACTIONS {
