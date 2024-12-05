@@ -1,4 +1,4 @@
-/*
+/*  
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -178,10 +178,24 @@ public class GUIManager implements GraphicsHandler {
     public boolean getResumeGame(){
         return homeHandler.getResumeGame();
     }
+    
+    /**
+     * Sets the username for the user if the game is resumed
+     * @param newName the new username for the gui to use
+     */
     public void setUsername(String newName){
         this.username = newName;
     }
+    
+    /**
+     * The player turn 
+     */
     private int turn =0;
+    
+    /**
+     * Updates the GUI based on the current game state and transitions between different scenes.
+     * This method checks if the current state requires a transition and updates the active GUI accordingly.
+     */
     public void update(){
         try {
             GUI_STATE checkTransition = this.scenes[this.activeGUI.ordinal()].getTransition();
@@ -209,47 +223,105 @@ public class GUIManager implements GraphicsHandler {
             ex.printStackTrace();
         }
     }
+    
+    /**
+     * Renders the current state of the game (method stub).
+     */
     public void render(){
-        
+       //Rendering handled by scene frame 
     }
     
+    /**
+     * Sets the turn number for the game.
+     * 
+     * @param newTurn The new turn number to set. (PlayerId)
+     */
     public void setTurn(int newTurn){
         if(newTurn < 4){
             this.turn = newTurn;
             this.gameDisplay.setTurn(newTurn);
         }
     }
+    
+    /**
+     * Sets the total number of turns for the game loop.
+     * 
+     * @param newTurn The new round number
+     */
     public void setTurnCount(int newTurn){
         if(this.activeGUI == GUI_STATE.GAMELOOP){
             this.gameDisplay.setTurnCount(newTurn);
         }
     }
+    
+    /**
+     * Sets the amount of money for a specific player.
+     * 
+     * @param playerId The ID of the player.
+     * @param money The amount of money to set for the player.
+     */
     public void setMoney(int playerId, int money){
         if(this.activeGUI == GUI_STATE.GAMELOOP){
             this.gameDisplay.setPlayerMoney(playerId,money);
         }
     }
+    
+     /**
+     * Deals the cards to the opponent(s) in the game loop.
+     */
     public void deal(){
         if(this.activeGUI == GUI_STATE.GAMELOOP){
             this.gameDisplay.dealOpponentCards();
         }
     }
     
+     /**
+     * removes the cards from the game.
+     */
     public void unDeal(){
         if(this.activeGUI == GUI_STATE.GAMELOOP){
             this.gameDisplay.unDealCards();
         }
     }
+    
+     /**
+     * Reveals the specified player's cards in the game loop.
+     * 
+     * @param playerID The ID of the player whose cards will be revealed.
+     * @param newCard The new card hand to reveal.
+     */
     public void reveal(int playerID, CardHand newCard){
         this.gameDisplay.reveal(playerID,newCard);
     }
+    
+    /**
+     * Integer to hold the amount of money the player would like to bet
+     */
     private int raiseAmount;
+    
+     /**
+     * Gets the amount raised in the game.
+     * 
+     * @return The raised amount.
+     */
     public int getRaiseAmount(){
         return raiseAmount;
     }
+    
+    /**
+     * Gets the current action taken by the player during the game loop.
+     * 
+     * @return The player's action.
+     */
     public PLAYER_ACTIONS getPlayerAction(){
         return this.gameDisplay.getTakenAction();
     }
+    
+     /**
+     * Waits for the player to make a decision during their turn, such as raising, folding, or calling.
+     * 
+     * @return The action taken by the player (e.g., RAISE, FOLD).
+     */
     public PLAYER_ACTIONS awaitPlayerAction(){
         this.raiseAmount = 0;
         this.gameDisplay.setPlayerAction();
@@ -266,6 +338,12 @@ public class GUIManager implements GraphicsHandler {
             }
         return this.gameDisplay.getTakenAction();
     }
+    
+    /**
+     * Sets the winner of the current round.
+     * 
+     * @param playerID The ID of the winning player.
+     */
     public void setWinner(int playerID){
         if(this.activeGUI == GUI_STATE.GAMELOOP){
             this.gameDisplay.setWinner(playerID);
@@ -279,9 +357,19 @@ public class GUIManager implements GraphicsHandler {
             }
         }
     }
+    
+     /**
+     * Returns the current active GUI state.
+     * 
+     * @return The current GUI state.
+     */
     public GUI_STATE getState(){
         return this.activeGUI;
     }
+    
+    /**
+     * Runs the game loop, checking for transitions and updating the GUI accordingly.
+     */
     private void runGameloop(){
         this.saveGame = this.gameDisplay.getSaveGame();
         while(!this.gameDisplay.getNextStart()){ //Wait for player to comprehend the consequences 

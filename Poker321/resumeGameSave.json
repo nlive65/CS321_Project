@@ -1,25 +1,25 @@
 {
     "pot": 0,
-    "round": 2,
+    "round": 3,
     "eliza": {
-        "balance": 14,
+        "balance": 56,
         "name": "Eliza",
         "isActive": true
     },
     "jeff": {
-        "balance": 32,
+        "balance": 216,
         "name": "Jeff",
         "isActive": true
     },
     "user": {
-        "balance": 20,
-        "name": "sam",
+        "balance": 512,
+        "name": "Nick",
         "isActive": true
     },
     "erin": {
-        "balance": 14,
+        "balance": 56,
         "name": "Erin",
         "isActive": true
     },
-    "rounds": 2
+    "rounds": 7
 }

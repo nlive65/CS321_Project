@@ -4,19 +4,31 @@
  */
 package GUI;
 import java.io.File;
-//@TODO: Add a button dynamically if there is a saved game that can be loaded 
 
 /**
- *
+ * Represents the home menu scene of the application.
+ * <p>This scene serves as the main menu where the user can either start a new game or resume a previously saved game.
+ * The user is presented with buttons for starting a new game or resuming an existing game (if a saved game file is found).</p>
+ * 
  * @author Nick
  */
 public class HomeMenuScene extends Scene {
-
+    /** internal state manager to check if the game should change to another menu*/
     private GUI_STATE internalStateTransitionSignal = GUI_STATE.HOME_MENU;
+    
+    /**
+     * Returns the current transition state of the scene.
+     * 
+     * @return The transition state of the scene, which is {@link GUI_STATE#HOME_MENU} by default.
+     */
     @Override
     public GUI_STATE getTransition(){
         return this.internalStateTransitionSignal;
     }
+    
+    /**
+     * Resets the transition state to the home menu.
+     */
     @Override
     public void ResetTransition(){
         this.internalStateTransitionSignal = GUI_STATE.HOME_MENU;
@@ -88,15 +100,41 @@ public class HomeMenuScene extends Scene {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    
     private boolean resumeGame;
+    
+    /**
+     * Returns whether the user wants to resume a previously saved game.
+     * 
+     * @return {@code true} if the user wants to resume a game, otherwise {@code false}.
+     */
     public boolean getResumeGame(){
         return this.resumeGame;
     }
+    
+    /**
+     * Handles the action of the "Play" button, which starts a new game. It sets
+     * the transition signal to {@link GUI_STATE#PREPLAY_SETTINGS}.
+     *
+     * @param evt The event that triggered the action.
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.internalStateTransitionSignal = GUI_STATE.PREPLAY_SETTINGS;
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+    
     private final String filePath = "resumeGameSave.json";
+    
+    /**
+     * Handles the action of the "Resume Game" button, which checks if a saved
+     * game exists. If a saved game file is found, it sets the transition signal
+     * to {@link GUI_STATE#GAMELOOP} and sets the {@code resumeGame} flag to
+     * {@code true}. If no saved game is found, the button does nothing.
+     *
+     * @param evt The event that triggered the action.
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         File file = new File(this.filePath);

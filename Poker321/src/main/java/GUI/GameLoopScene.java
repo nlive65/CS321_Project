@@ -7,27 +7,74 @@ import card.CardHand;
 import card.Card;
 import gameManager.PLAYER_ACTIONS;
 import java.util.ArrayList;
+
 /**
- *
+ * This class represents the game loop scene in the GUI of the poker game.
+ * It handles the player's actions, card dealing, money management, and player status updates.
+ * It extends the abstract class {@link Scene} and overrides methods to provide specific functionality
+ * for the game loop, such as managing player turns, displaying the result of actions, and updating the 
+ * graphical user interface based on the state of the game.
+ * <p>
+ * The scene is responsible for interacting with various player components, updating their status, 
+ * and providing visual feedback during the game.
+ * </p>
+ * 
  * @author Nick
  */
 public class GameLoopScene extends Scene {
+    
+    /** Internal state signal for transition. */
     private GUI_STATE internalStateTransitionSignal = GUI_STATE.GAMELOOP;
+    
+    /** The action taken by the player. */
     private PLAYER_ACTIONS takenAction;
+    
+    /** The amount of money raised by the user in the current round. */
     private int raiseAmount;
+    
+    /** The previous player's ID (used for managing state transitions). */
+    private int prevPlayerId;
+    
+    /** Flag indicating if the next round can be started. */
+    private boolean canStartNextRound;
+    
+    /** Flag for whether or not the game can be saved*/
+    private boolean saveGame;
+    
+    
+    /**
+     * Sets the username displayed in the game UI.
+     *
+     * @param name The username to display.
+     */
     @Override
     public void setUsername(String name){
         this.jLabel7.setText(name);
     }
+    
+    /**
+     * Sets the current turn count displayed in the game UI.
+     *
+     * @param turn The turn number to display.
+     */
     @Override
     public void setTurnCount(int turn){
         this.jLabel1.setText("" + turn);
     }
+    
+     /**
+     * Resets the internal state of the game loop to allow for a new game loop cycle.
+     */
     @Override
     public void ResetTransition(){
         this.internalStateTransitionSignal = GUI_STATE.GAMELOOP;
     }
-    private int prevPlayerId;
+    
+    
+    /**
+     * Deals the opponent's cards (represented as face-down images) and makes them visible sequentially.
+     * This simulates the process of dealing cards to each opponent.
+     */
     public void dealOpponentCards(){
         try{
             jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/Back - Top Down 88x124.png"))); // NOI18N
@@ -52,6 +99,11 @@ public class GameLoopScene extends Scene {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * Hides all the player and opponent cards.
+     * This is used to reset the visual state when cards are no longer needed.
+     */
     public void unDealCards(){
         jLabel14.setVisible(false);
         jLabel19.setVisible(false);
@@ -68,12 +120,29 @@ public class GameLoopScene extends Scene {
         jLabel25.setVisible(false);
         jLabel26.setVisible(false);
     }
+    
+    /**
+     * Sets the player's action to {@link PLAYER_ACTIONS#IDLE}, indicating that no action is being taken.
+     */
     public void setPlayerAction(){
         this.takenAction = PLAYER_ACTIONS.IDLE;
     }
+    
+    /**
+     * Returns the action currently taken by the player.
+     *
+     * @return The current player action.
+     */
     public PLAYER_ACTIONS getTakenAction(){
         return this.takenAction;
     }
+    
+     /**
+     * Sets the current turn by updating the player's ID and resetting the game state for the new turn.
+     * Also handles updating the visual display to show the active player.
+     *
+     * @param playerId The ID of the player whose turn it is.
+     */
     public void setTurn(int playerId){
         this.raiseAmount = 0;
         this.setPlayerButtons(false);
@@ -111,6 +180,13 @@ public class GameLoopScene extends Scene {
         }
         this.prevPlayerId = playerId;
     }
+    
+    /**
+     * Updates the amount of money for the specified player and displays it on the UI.
+     *
+     * @param playerId The ID of the player.
+     * @param money The amount of money to display.
+     */
     public void setPlayerMoney(int playerId, int money){
         switch(playerId){
             case 0:
@@ -137,21 +213,35 @@ public class GameLoopScene extends Scene {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * Shows or hides the player's action buttons based on the game state.
+     *
+     * @param setTurn A boolean flag indicating whether to show the buttons for the current player's turn.
+     */
     private void setPlayerButtons(boolean setTurn){
         this.jButton2.setVisible(setTurn);
         this.jButton4.setVisible(setTurn);
         this.jButton3.setVisible(setTurn);
         this.jSpinner1.setVisible(setTurn);
     }
+    
+    /**
+     * Returns the current transition state of the game.
+     *
+     * @return The current {@link GUI_STATE} transition.
+     */
     @Override
     public GUI_STATE getTransition(){
         return this.internalStateTransitionSignal;
     }
-    /**
-     * Creates new form GameLoopScene
-     */
-    private boolean canStartNextRound;
     
+    
+    /**
+     * Sets the winner of the current round and updates the UI to reflect the win message.
+     *
+     * @param playerID The ID of the winning player.
+     */
     public void setWinner(int playerID){
         this.canStartNextRound = false;
         this.jButton5.setVisible(true);
@@ -174,11 +264,18 @@ public class GameLoopScene extends Scene {
                 break;
         }
     }
-    
+    /**
+     * Function at the end of a round to check if the player is ready to begin the next round
+     * @return boolean indicating the continue button has been pressed
+     */
     public boolean getNextStart(){
         return this.canStartNextRound;
     }
     
+    /**
+ * Constructs a new GameLoopScene instance.
+ * Initializes the components and sets the initial values for labels, buttons, and game state.
+ */
     public GameLoopScene() {
         initComponents();
         this.prevPlayerId = 0;
@@ -195,6 +292,11 @@ public class GameLoopScene extends Scene {
         
     }
     
+    /**
+    * Handles the folding action for a specific player. The player's cards are hidden based on the player ID.
+    * 
+    * @param playerId The ID of the player who is folding (0 = Player, 1 = Jeff, 2 = Eliza, 3 = Erin).
+    */
     public void fold(int playerId){
         switch(playerId){
             case 0:
@@ -216,6 +318,14 @@ public class GameLoopScene extends Scene {
         }
     }
     
+    /**
+    * Reveals the cards for a specific player or the community cards. 
+    * The cards are displayed on the UI based on the player ID.
+    * 
+    * @param playerId The ID of the player whose cards are being revealed.
+    *                  (0 = Player, 1 = Jeff, 2 = Eliza, 3 = Erin, 4 = Flop, 5 = Turn, 6 = River).
+    * @param newCard The new card hand to be revealed.
+    */
     public void reveal(int playerId, CardHand newCard){
         ArrayList<Card> hand = newCard.GetTwoCardHand();
         switch(playerId){
@@ -451,40 +561,90 @@ public class GameLoopScene extends Scene {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private boolean saveGame;
+    
+    /**
+    * Handles the action event for jButton1. Sets the saveGame flag to true.
+    * This is typically triggered when the user clicks on the save game button.
+    * 
+    * @param evt The action event triggered by clicking the save game button.
+    */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.saveGame = true;
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+    * Handles the action event for jButton5. Sets the canStartNextRound flag to true.
+    * This is triggered when the user clicks on the button allowing the next round to start.
+    * 
+    * @param evt The action event triggered by clicking the next round button.
+    */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         this.canStartNextRound = true;
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    /**
+    * Handles the action event for jButton2. Sets the takenAction flag to PLAYER_ACTIONS.CHECK.
+    * This action is typically triggered when the user selects the "Check" option in the game.
+    * 
+    * @param evt The action event triggered by clicking the check button.
+    */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         this.takenAction = PLAYER_ACTIONS.CHECK;
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
+    /**
+    * Handles the action event for jButton4. Sets the takenAction flag to PLAYER_ACTIONS.FOLD.
+    * This action is triggered when the user selects the "Fold" option in the game.
+    * 
+    * @param evt The action event triggered by clicking the fold button.
+    */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         this.takenAction = PLAYER_ACTIONS.FOLD;
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    /**
+    * Handles the action event for jButton3. Sets the takenAction flag to PLAYER_ACTIONS.RAISE
+    * and retrieves the raise amount from the spinner.
+    * This action is triggered when the user selects the "Raise" option in the game.
+    * 
+    * @param evt The action event triggered by clicking the raise button.
+    */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         this.takenAction = PLAYER_ACTIONS.RAISE;
         this.raiseAmount = (Integer) jSpinner1.getValue();
         
     }//GEN-LAST:event_jButton3ActionPerformed
+    
+    /**
+     * Gets the amount raised by the player during a raise action.
+     *
+     * @return The amount the player wants to raise.
+     */
     public int getRaiseAmount(){
         return this.raiseAmount;
     }
+    
+    /**
+     * Gets the saveGame flag, which indicates if the game should be saved.
+     *
+     * @return True if the game should be saved, false otherwise.
+     */
     public boolean getSaveGame(){
         return this.saveGame;
     }
     
+    /**
+     * Sets the saveGame flag to indicate whether the game should be saved or
+     * not.
+     *
+     * @param newSave The new value for the saveGame flag (true to save the
+     * game, false otherwise).
+     */
     public void setSaveGame(boolean newSave){
         this.saveGame = newSave;
     }

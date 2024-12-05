@@ -5,39 +5,92 @@
 package GUI;
 
 /**
- *
+ * Represents the settings screen for a game, where the user can adjust the number of turns, bet amount, and set a username.
+ * This class extends the {@link Scene} class and provides functionality for the settings' UI components.
+ * It allows the user to input the number of turns, the bet amount, and the username, and start the game with these settings.
+ * 
+ * <p>This class includes event listeners for sliders and the start button, which dynamically update the settings
+ * based on user interaction. The settings are stored in the fields {@link #betAmount}, {@link #turnCount}, and 
+ * {@link #userName}.</p>
+ * 
  * @author Nick
  */
 public class Game_settings extends Scene {
+   
+    /**
+     * Resets the internal state transition signal to the predefined settings state.
+     * This method is overridden from the {@link Scene} class.
+     */
     @Override
     public void ResetTransition(){
         this.internalStateTransitionSignal = GUI_STATE.PREPLAY_SETTINGS;
     };
-    /**
-     * Creates new form Game_settings
+    
+    /** 
+     * The amount of money the user wants to bet.
      */
     private int betAmount;
+    
+    /** 
+     * The number of turns the game will last.
+     */
     private int turnCount;
+    
+    /** 
+     * The username entered by the player.
+     */
     private String userName;
+    
+    /**
+     * Internal signal for transitioning the state of the GUI.
+     */
     private GUI_STATE internalStateTransitionSignal;
+    
+    /**
+     * Returns the current state transition signal.
+     *
+     * @return The current internal state transition signal.
+     */
     @Override
     public GUI_STATE getTransition(){
         return this.internalStateTransitionSignal;
     };
+    
+     /**
+     * Returns the starting money.
+     *
+     * @return The current bet amount.
+     */
     @Override
     public int getBetAmount(){
         return this.betAmount;
     }
     
+    
+    /**
+     * Returns the current number of turns.
+     *
+     * @return The current number of turns.
+     */
     @Override
     public int getTurnCount(){
         return this.turnCount;
     }
     
+    /**
+     * Returns the current username.
+     *
+     * @return The current username.
+     */
     @Override
     public String getUserName(){
         return this.userName;
     }
+    
+     /**
+     * Creates a new {@link Game_settings} form. Initializes the bet amount, turn count, 
+     * and user name with default values, and sets the internal state transition signal.
+     */
     public Game_settings() {
         initComponents();
         this.betAmount = this.jSlider3.getValue();
@@ -162,18 +215,38 @@ public class Game_settings extends Scene {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Updates the bet amount when the bet slider is adjusted. The bet amount is
+     * multiplied by 10 and displayed in the associated label.
+     *
+     * @param evt The event triggered by the slider change.
+     */
     private void jSlider3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider3StateChanged
         // TODO add your handling code here:
         this.betAmount = this.jSlider3.getValue();
         jLabel3.setText("" + this.betAmount*10);
     }//GEN-LAST:event_jSlider3StateChanged
 
+    
+    /**
+     * Updates the number of turns when the turn slider is adjusted. The number
+     * of turns is displayed in the associated label.
+     *
+     * @param evt The event triggered by the slider change.
+     */
     private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
         // TODO add your handling code here:
         this.turnCount = this.jSlider2.getValue();
         jLabel1.setText(""  + this.turnCount);
     }//GEN-LAST:event_jSlider2StateChanged
 
+    /**
+     * Handles the action when the "Start" button is clicked. If the bet amount,
+     * turn count, and user name are valid, it transitions to the game loop
+     * state.
+     *
+     * @param evt The event triggered by the button click.
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.userName = this.jTextField1.getText();
@@ -182,6 +255,11 @@ public class Game_settings extends Scene {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Handles the action when the user types in the username text field.
+     *
+     * @param evt The event triggered by the action.
+     */
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
