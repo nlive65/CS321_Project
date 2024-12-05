@@ -25,11 +25,26 @@ import java.io.File;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 /**
- *
+ *Main driver code and exists as the entry point to the software
  * @author Everyone
  */
 public class Poker321 {
-
+    /**
+    * Saves the current game state to a JSON file.
+    * 
+    * This method serializes the state of the game into a JSON format and writes it to a specified file.
+    * The game state includes information such as the number of rounds, the current round, the pot amount, 
+    * and the states of each player (name, balance, active status, and optionally cards).
+    *
+    * @param user   The player representing the user.
+    * @param jeff   The player representing Jeff.
+    * @param eliza  The player representing Eliza.
+    * @param erin   The player representing Erin.
+    * @param rules  The game rules, used to retrieve the pot amount.
+    * @param rounds The total number of rounds in the game.
+    * @param round  The current round number.
+    * @param fileName The name of the file where the game state will be saved.
+    */
     private static void saveGameToJson(Player user, Player jeff, Player eliza, Player erin, GameRules rules, int rounds, int round, String fileName){
         JSONObject gameState = new JSONObject();
         
@@ -55,6 +70,15 @@ public class Poker321 {
        }
     }
     
+    /**
+    * Creates a JSON representation of a player.
+    * 
+    * This method converts a player object into a JSON object containing the player's name,
+    * balance, and active status. Optionally, it could also include card information (currently commented out).
+    *
+    * @param player The player whose data is to be serialized.
+    * @return A JSONObject containing the player's information.
+    */
     private static JSONObject createPlayerObject(Player player){
         JSONObject playerObj = new JSONObject();
         
@@ -74,7 +98,12 @@ public class Poker321 {
         */
         return playerObj;
     }
-    
+    /**
+     * Main function of the code, runs the poker game including menuing, checking game rules, interfacing with gui and 
+     * internal game logic to control the state of the game
+     * Will also resume and save game if commanded
+     * @param args 
+     */
     public static void main(String[] args) 
     {
         GUIManager gui = new GUIManager();

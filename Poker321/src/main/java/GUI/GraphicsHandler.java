@@ -5,11 +5,12 @@
 package GUI;
 
 /**
- *
- * @author Nick
- */
-/**
  * Interface for rendering graphics in the application.
+ * <p>This interface defines the method required for any class that is responsible for rendering graphics. 
+ * Any class implementing this interface must provide its own implementation of the {@link #render()} method, 
+ * which will handle the drawing or rendering of the graphical state.</p>
+ * 
+ * @author Nick
  */
 public interface GraphicsHandler {
     /**
