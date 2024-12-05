@@ -293,7 +293,7 @@ public class Poker321 {
                             user.fold();
                             gui.fold(0);
                         }
-                        if(user.isActive())
+                        if(user.isActive() && action != PLAYER_ACTIONS.CHECK)
                         {
                             userBet = gui.getRaiseAmount();
                     
@@ -437,7 +437,7 @@ public class Poker321 {
                         {
                             user.fold();
                         }
-                        if(user.isActive())
+                        if(user.isActive() && action != PLAYER_ACTIONS.CHECK)
                         {
                             userBet = gui.getRaiseAmount();
                     
@@ -496,7 +496,7 @@ public class Poker321 {
                         PLAYER_ACTIONS action = gui.awaitPlayerAction();
                         //check for raise or bet amount
                         // USER
-                        if(action == PLAYER_ACTIONS.FOLD)
+                        if(action == PLAYER_ACTIONS.CHECK)
                         {
                             user.fold();
                         }
@@ -565,7 +565,7 @@ public class Poker321 {
                         {
                             user.fold();
                         }
-                        if(user.isActive())
+                        if(user.isActive() && action != PLAYER_ACTIONS.CHECK)
                         {
                             userBet = gui.getRaiseAmount();
                     
@@ -646,6 +646,8 @@ public class Poker321 {
             jeff.ResetPlayerHand();
             eliza.ResetPlayerHand();
             erin.ResetPlayerHand();
+            
+            
         }
         gui.setActiveGUI(GUI_STATE.HOME_MENU);
         gui.update();
